@@ -1,6 +1,6 @@
 // aaron.gandzumian@mif.stud.vu.lt
 // Studento ID: 2413934
-// Programa sukuria stack'o tipo duomenų struktūrą ir realizuoja stack'o manipuliacijos funkcijas 
+// Programa sukuria stack'o tipo duomenų struktūrą ir realizuoja stack'o manipuliacijos funkcijas
 // (create, push, pop, peek, display, isEmpty, isFull)
 
 #ifndef HEADER_H
@@ -8,8 +8,8 @@
 
 typedef struct Stack
 {
-    int value;
-    struct Stack *next;
+   int value;
+   struct Stack *next;
 } stack;
 
 stack *createStack(int value);

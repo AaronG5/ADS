@@ -17,42 +17,41 @@
 
 int main()
 {
-    stack *top;
+   stack *top;
 
-    top = createStack(172);
-    
-    assert(top->value == 172);
+   top = createStack(172);
 
-    push(20, &top);
-    assert(top->value == 20);
+   assert(top->value == 172);
 
-    pop(&top);
-    assert(top->value == 172);
+   push(20, &top);
+   assert(top->value == 20);
 
-    peek(top);
+   pop(&top);
+   assert(top->value == 172);
 
-    assert(isFull(top) == 0);
+   peek(top);
 
-    pop(&top);
-    assert(top == NULL);
+   assert(isFull(top) == 0);
 
-    pop(&top);
+   pop(&top);
+   assert(top == NULL);
 
-/*
-    push(11, &top);
-    assert(top->value == 11);
-    push(22, &top);
-    peek(top);
-    assert(top->value == 22);
-    push(33, &top);
-    assert(top->value == 33);
-    push(44, &top);
-    assert(top->value == 44);
-    push(55, &top);
-    assert(top->value == 55);
-*/
-    displayStack(top);
+   pop(&top);
 
+   /*
+       push(11, &top);
+       assert(top->value == 11);
+       push(22, &top);
+       peek(top);
+       assert(top->value == 22);
+       push(33, &top);
+       assert(top->value == 33);
+       push(44, &top);
+       assert(top->value == 44);
+       push(55, &top);
+       assert(top->value == 55);
+   */
+   displayStack(top);
 
-    return 0;
+   return 0;
 }

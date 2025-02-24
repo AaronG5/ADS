@@ -1,5 +1,6 @@
 #include <assert.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "stack.h"
 
 // Stack'as turi tureti limita (pvz. iki 5 elementu)
@@ -15,43 +16,84 @@
 // iki kovo 5d.
 // kita sav. paskaitos nebus
 
-int main()
-{
-   stack *top;
+int main() {
+stackProperties *a;
+a = createStack(a);
+int val;
+assert(isStackEmpty(a));
+assert(!isStackFull(a));
 
-   top = createStack(172);
+//Create stack tikrinimas
+assert(a->top == NULL);
+assert(a->counter == 0);
+assert(a->isEmpty == true);
+assert(a->isCreated == true);
 
-   assert(top->value == 172);
+//push komandos tikrinimas
+push(1, &a);
+assert(a->top->value == 1);
+assert(a->top->next == NULL);
+assert(a->counter == 1);
+assert(a->isEmpty == false);
+assert(a->isCreated == true);
 
-   push(20, &top);
-   assert(top->value == 20);
+stack *b;
+b = a->top;
 
-   pop(&top);
-   assert(top->value == 172);
+push(5, &a);
+assert(a->top->value == 5);
+assert((a->top->next) == b);
+assert(a->counter == 2);
+assert(a->isEmpty == false);
+assert(a->isCreated == true);
 
-   peek(top);
 
-   assert(isFull(top) == 0);
 
-   pop(&top);
-   assert(top == NULL);
 
-   pop(&top);
+push(12, &a);
+assert(a->top->value == 5);
+assert((a->top->next) == b);
+assert(a->counter == 2);
+assert(a->isEmpty == false);
+assert(a->isCreated == true);
+displayStack(a);
+peek(a);
 
-   /*
-       push(11, &top);
-       assert(top->value == 11);
-       push(22, &top);
-       peek(top);
-       assert(top->value == 22);
-       push(33, &top);
-       assert(top->value == 33);
-       push(44, &top);
-       assert(top->value == 44);
-       push(55, &top);
-       assert(top->value == 55);
-   */
-   displayStack(top);
+//pop komandos tikrinimas
+
+val = pop(&a);
+assert(a->top->value == 1);
+assert((a->top->next) == NULL);
+assert(a->counter == 1);
+assert(a->isEmpty == false);
+assert(a->isCreated == true);
+assert(val == 5);
+
+val = pop(&a);
+assert((a->top) == NULL);
+assert(a->counter == 0);
+assert(a->isEmpty == true);
+assert(a->isCreated == true);
+assert(val == 1);
+
+val = pop(&a);
+assert((a->top) == NULL);
+assert(a->counter == 0);
+assert(a->isEmpty == true);
+assert(a->isCreated == true);
+assert(val == -1);
+assert(isStackEmpty(a));
+assert(!isStackFull(a));
+
+
+printf("%d",a->counter);
+
+
+
+
+
+
+
 
    return 0;
 }

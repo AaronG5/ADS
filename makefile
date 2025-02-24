@@ -1,20 +1,14 @@
-CC = gcc
-CFLAGS = -Wall
-FILES = main.o stack.o 
-OUT_EXE = stack.exe
-
-build: $(FILES)
-	$(CC) $(FILES) -o $(OUT_EXE)
+program: main.o stack.o
+	gcc stack.o main.o -o program
 
 main.o: main.c stack.h
-	$(CC) $(CFLAGS) -c main.c
+	gcc -c main.c -o main.o
 
 stack.o: stack.c stack.h
-	$(CC) $(CFLAGS) -c stack.c
+	gcc -c stack.c -o stack.o
+
+run: program
+	./program
 
 clean:
-	rm -f *.o *.exe
-
-rebuild:
-	$(MAKE) clean
-	$(MAKE) build
+	rm *.o program

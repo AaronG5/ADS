@@ -14,7 +14,6 @@
 // maximum 3 stack'ai, bandant sukurti 4-ta, turetu ismesti error
 // funckija uzbaigti darba
 // iki kovo 5d.
-// kita sav. paskaitos nebus
 
 int main() {
 stackProperties *a;
@@ -87,13 +86,6 @@ assert(!isStackFull(a));
 
 
 printf("%d",a->counter);
-
-
-
-
-
-
-
 
    return 0;
 }

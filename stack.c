@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include "stack.h"
 
-stackProperties *createStack(stackProperties *stack) // Creates new stack with a value placed inside
+stackProperties *createStack(stackProperties *stackP) // Creates new stack with a value placed inside
 {
    stackProperties *newStack = (stackProperties*)malloc(sizeof(stackProperties));
    if (newStack == NULL)

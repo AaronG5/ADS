@@ -3,6 +3,20 @@
 #include <stdbool.h>
 #include "stack.h"
 
+int validUserInput() 
+{
+   int userInt;
+   char newLine;
+   while(1) 
+   {
+      if(scanf("%d%c", userInt, newLine) && newLine == "\n")
+      {
+         if(userInt) // TODO: finish user input validation + implement multi stack manipulation
+      }
+   }
+}
+
+
 stackProperties *createStack(stackProperties *stackP) // Creates new stack with a value placed inside
 {
    stackProperties *newStack = (stackProperties*)malloc(sizeof(stackProperties));

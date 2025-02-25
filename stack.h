@@ -5,42 +5,55 @@
 
 #ifndef HEADER_H
 #define HEADER_H
+
 #include <stdbool.h>
+
 #define MAX_SIZE 2
+#define MAX_STACK_AMOUNT 3
+#define USING_MENU 1
+#define NOT_USING_MENU 0
+
 
 typedef struct Stack {
    int value;
    struct Stack *next;
-}stack;
+} stack;
+
 typedef struct StackProperties {
    stack *top;
+   char stackName;
    bool isCreated;
-   int counter;
    bool isEmpty;
+   int counter;
 } stackProperties;
 
-//Creation of stack
-stackProperties *createStack(stackProperties *stack);
 
-//Pushes value into stack's top
-void push(int value, stackProperties **top);
+int validateUserInput(int intUsedForMenu);
 
-//removes top value from stack
+int chooseStackABC(stackProperties *stackP[], bool creationMode);
+
+// Creation of stack
+stackProperties *createStack(stackProperties **stack, int *stackNum, int stackVar);
+
+// Push value onto top of stack
+void push(stackProperties **top, int value);
+
+// Remove top value from stack
 int pop(stackProperties **stackP);
 
-//prints stack's top value
+// Print stack top value
 void peek(stackProperties *stackP);
 
-//prints the whole stack
+// Print the whole stack
 void displayStack(stackProperties *stackP);
 
-//checks if stack is empty
+// Check if stack is empty
 bool isStackEmpty(stackProperties *stackP);
 
-//checks if stack is full
+// Check if stack is full
 bool isStackFull(stackProperties *stackP);
 
-//stack deletion
+// Delete stack
 void deleteStack(stackProperties **stackP);
 
 #endif

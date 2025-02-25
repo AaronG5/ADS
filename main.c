@@ -11,9 +11,7 @@ int main()
       stacksABC[i] = NULL;
    }
 
-
-   printf(
-      "=======================================================\n"
+   char *menu = "=======================================================\n"
       "*  Spauskite [1] - sukurti steką                      *\n"
       "*  Spauskite [2] - įdėti reikšmę į steką (push)       *\n"
       "*  Spauskite [3] - išimti reikšmę iš steko (pop)      *\n"
@@ -22,15 +20,21 @@ int main()
       "*  Spauskite [6] - patikrinti, ar stekas yra tuščias  *\n"
       "*  Spauskite [7] - patikrinti, ar stekas yra pilnas   *\n"
       "*  Spauskite [8] - ištrinti visus steko elementus     *\n"
+      "*  Spauskite [9] - atspausdinti meniu į ekraną        *\n"
       "*  Spauskite [0] - užbaigti programą                  *\n"
-      "=======================================================\n\n");
+      "=======================================================\n\n";
+
+   printf("%s", menu);
 
    while(1) {
       userInput = validateUserInput(USING_MENU);
       int tempABC, chosenStack;
 
-      if(userInput != 0 && userInput != 1) {
+      if(userInput != 0 && userInput != 1 && userInput != 9) {
          chosenStack = chooseStackABC(stacksABC, false);
+         if(chosenStack < 0) {
+            continue;
+         }
       }
 
       switch(userInput) {
@@ -43,7 +47,7 @@ int main()
             break;
 
          case 2:
-            push(&stacksABC[chosenStack], validUserInput(NOT_USING_MENU));
+            push(&stacksABC[chosenStack], validateUserInput(NOT_USING_MENU));
             break;
 
          case 3:
@@ -59,15 +63,20 @@ int main()
             break;
 
          case 6:
-            printf("%s", isStackEmpty(stacksABC[chosenStack]) ? "Stack is empty.\n" : "Stack is not empty.\n");
+            printf("%s", isStackEmpty(stacksABC[chosenStack]) ? "Stekas tuščias.\n" : "Stekas nėra tuščias.\n");
             break;
 
          case 7:
-            printf("%s", isStackFull(stacksABC[chosenStack]) ? "Stack is full.\n" : "Stack is not full.\n");
+            printf("%s", isStackFull(stacksABC[chosenStack]) ? "Stekas pilnas.\n" : "Stekas nėra pilnas.\n");
             break;
 
          case 8:
             deleteStack(&stacksABC[chosenStack]);
+            break;
+         
+         case 9:
+            printf("\033[H\033[J");
+            printf("%s", menu);
             break;
       }
    }

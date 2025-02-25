@@ -8,18 +8,21 @@ int validateUserInput(int intUsedForMenu) {
    char newLine;
 
    while(1) {
+      if(!intUsedForMenu) {
+         printf("Įveskite reikšmę, skirtą patalpinti į steką.\n");
+      }
       if(scanf(" %d%c", &userInt, &newLine) && newLine == '\n') {
-         if(intUsedForMenu && userInt < 9 && userInt >= 0) {
+         if(intUsedForMenu && userInt < 10 && userInt >= 0) {
             return userInt;
          }
          else if(intUsedForMenu) {
-            printf("Error, incorrect value.\n");
+            printf("Įvyko klaida (%d), neteisinga reikšmė.\n", ERR_INVALID_INPUT);
             continue;
          }
          return userInt;
       }
       else {
-         printf("Error, incorrect value.\n");
+         printf("Įvyko klaida (%d), netaisyklinga įvestis.\n", ERR_INVALID_INPUT);
          while(getchar() != '\n');
       }
    }
@@ -29,7 +32,7 @@ int chooseStackABC(stackProperties *stackP[], bool creationMode) {
    int stackVariant;
    char stackLetter, newLine;
 
-   printf("Please choose from the list below\n");
+   printf("Pasirinkite steką iš apatinio sarašo:\n");
    
    if(creationMode) {
       printf("[A], [B], [C]\n");
@@ -46,7 +49,7 @@ int chooseStackABC(stackProperties *stackP[], bool creationMode) {
       printf("\n");
 
       if(!foundCreatedStacks) {
-         printf("No available stacks.\n");
+         printf("Įvyko klaida (%d), nėra sukurtų stekų.\n", ERR_SEGMENTATION_FAULT);
          return -1;
       }
    }
@@ -70,18 +73,18 @@ int chooseStackABC(stackProperties *stackP[], bool creationMode) {
                break;
 
             default:
-               printf("Invalid stack variant, please try again.\n");
+               printf("Įvyko klaida (%d), netaisyklingas steko pavadinimas, bandykite dar kartą.\n", ERR_INVALID_INPUT);
                continue;
          }
 
          if(stackVariant >= 0 && !creationMode && (stackP[stackVariant] == NULL)) {
-             printf("The selected stack has not been created. Please choose another.\n");
+             printf("Įvyko klaida (%d), pasirinktas stekas dar nėra sukurtas, pasirinkite kitą.\n", ERR_SEGMENTATION_FAULT);
              continue; 
          }
          return stackVariant;
       }
       else {
-         printf("Invalid input. Please try again.\n");
+         printf("Įvyko klaida (%d), netaisyklingas įvedimas, bandykite dar kartą.\n", ERR_INVALID_INPUT);
          while (getchar() != '\n');
       }
    }
@@ -91,17 +94,17 @@ int chooseStackABC(stackProperties *stackP[], bool creationMode) {
 stackProperties *createStack(stackProperties **stackP, int *stackNum, int stackVar)
 {
    if(*stackNum == MAX_STACK_AMOUNT) {
-      printf("Maximum stack amount reached! (%d)\n", MAX_STACK_AMOUNT);
+      printf("Įvyko klaida (%d), maksimalus stekų kiekis pasiektas (%d).\n", ERR_STACK_OVERFLOW , MAX_STACK_AMOUNT);
       return NULL;
    }
 
    stackProperties *newStack = (stackProperties*)malloc(sizeof(stackProperties));
    if (newStack == NULL) {
-      printf("Error allocating memory for stack.\n");
+      printf("Įvyko klaida (%d), nepavyko priskirti atminties stekui.\n", ERR_OUT_OF_MEMORY);
       return NULL;
    }
    else if((*stackP) != NULL && (*stackP)->isCreated == true) {
-      printf("Stack is already created\n");
+      printf("Įvyko klaida (%d), stekas jau buvo sukurtas.\n", ERR_DUPLICATE_DEC);
       return *stackP;
    }
    else {
@@ -125,7 +128,7 @@ stackProperties *createStack(stackProperties **stackP, int *stackNum, int stackV
             break;
       }
 
-      printf("Stack %c successfully created.\n", stackVar);
+      printf("Stekas %c sėkmingai sukurtas.\n", stackVar);
       return newStack;
    }
 }
@@ -133,13 +136,13 @@ stackProperties *createStack(stackProperties **stackP, int *stackNum, int stackV
 void push(stackProperties **stackP, int value) // Pushes element onto top of stack
 {
    if (*stackP == NULL || !((*stackP)->isCreated)) {
-      printf("Stack is not created.\n");
+      printf("Įvyko klaida (%d), stekas nėra sukurtas.\n", ERR_SEGMENTATION_FAULT);
       return;
    }
 
    stack *newElement = (stack *)malloc(sizeof(stack));
    if (newElement == NULL || (*stackP)->counter >= MAX_SIZE) {
-      printf("Maximum stack size reached! (%d)\n", MAX_SIZE);
+      printf("Įvyko klaida (%d), maksimalus stekų kiekis pasiektas (%d).\n", ERR_STACK_OVERFLOW, MAX_SIZE);
       return;
    }
    else {
@@ -150,13 +153,13 @@ void push(stackProperties **stackP, int value) // Pushes element onto top of sta
       newElement->next = (*stackP)->top;
       (*stackP)->top = newElement;
       (*stackP)-> counter ++;
-      printf("Succesfully pushed %d to stack.\n", value);
+      printf("Skaičius %d sėkmingai įdėtas į steką %c.\n", value, (*stackP)->stackName);
    }
 }
 
 int pop(stackProperties **stackP) { // Pops top element out of stack
-   if (*stackP == NULL || (*stackP)->isEmpty) {
-      printf("Stack is empty.\n");
+   if (*stackP == NULL) {
+      printf("Įvyko klaida (%d), stekas tuščias.\n", ERR_STACK_UNDERFLOW);
       return -1;
    }
    else {
@@ -170,14 +173,14 @@ int pop(stackProperties **stackP) { // Pops top element out of stack
       (*stackP)->top = (*stackP)->top->next;
       free(temp);
       (*stackP)->counter--;
-      printf("Succesfully popped %d from stack.\n", topValue);
+      printf("Skaičius %d sėkmingai išmestas iš steko %c.\n", topValue, (*stackP)->stackName);
       return topValue;
    }
 }
 
 void peek(stackProperties *stackP) { // Prints the top element of stack
    if (stackP == NULL || stackP->isEmpty) {
-      printf("Stack is empty, nothing to print.\n");
+      printf("Įvyko klaida (%d), stekas tuščias, nėra ką spausdinti.\n", ERR_SEGMENTATION_FAULT);
    }
    else {
       printf("%d\n", stackP->top->value);
@@ -186,16 +189,16 @@ void peek(stackProperties *stackP) { // Prints the top element of stack
 
 void displayStack(stackProperties *stackP) { // Displays entire contents of stack from top to bottom
    if (stackP == NULL || stackP->isEmpty) {
-      printf("Stack is empty, nothing to display.\n");
+      printf("Įvyko klaida (%d), stekas tuščias, nėra ką spausdinti.\n", ERR_SEGMENTATION_FAULT);
    }
    else {
-      printf(" --Top of stack--\n");
+      printf(" --Steko viršus--\n");
       stack *temp = stackP->top;
       for(int i = 0; i < stackP->counter; i++) {
          printf("%d\n", stackP->top->value);
          stackP -> top = stackP->top->next;
       }
-      printf("--Bottom of stack--\n");
+      printf(" --Steko apačia--\n");
       stackP->top = temp;
    }
 }
@@ -218,5 +221,5 @@ void deleteStack(stackProperties **stackP) {
    }
    (*stackP) -> isCreated = false;
    
-   printf("Stack %c deleted successfully.\n", (*stackP)->stackName);
+   printf("Stekas %c sėkmingai ištrintas.\n", (*stackP)->stackName);
 }

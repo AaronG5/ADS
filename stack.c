@@ -12,7 +12,7 @@ int validateUserInput(int intUsedForMenu) {
          printf("Įveskite reikšmę, skirtą patalpinti į steką.\n");
       }
       if(scanf(" %d%c", &userInt, &newLine) && newLine == '\n') {
-         if(intUsedForMenu && userInt < 10 && userInt >= 0) {
+         if(intUsedForMenu && userInt < 11 && userInt > 0) {
             return userInt;
          }
          else if(intUsedForMenu) {

@@ -11,26 +11,25 @@ int main()
       stacksABC[i] = NULL;
    }
 
-   char *menu = "=======================================================\n"
-      "*  Spauskite [1] - sukurti steką                      *\n"
-      "*  Spauskite [2] - įdėti reikšmę į steką (push)       *\n"
-      "*  Spauskite [3] - išimti reikšmę iš steko (pop)      *\n"
-      "*  Spauskite [4] - patikrinti viršutinę steko reikšmę *\n"
-      "*  Spauskite [5] - išspausdinti visas steko reikšmes  *\n"
-      "*  Spauskite [6] - patikrinti, ar stekas yra tuščias  *\n"
-      "*  Spauskite [7] - patikrinti, ar stekas yra pilnas   *\n"
-      "*  Spauskite [8] - ištrinti visus steko elementus     *\n"
-      "*  Spauskite [9] - atspausdinti meniu į ekraną        *\n"
-      "*  Spauskite [0] - užbaigti programą                  *\n"
-      "=======================================================\n\n";
+   char *menu = "\n 1. Sukurti tuščią steką\n"
+      " 2. Įdėti reikšmę į steką (push)\n"
+      " 3. Išimti reikšmę iš steko (pop)\n"
+      " 4. Patikrinti viršutinę steko reikšmę\n"
+      " 5. Išspausdinti visas steko reikšmes\n"
+      " 6. Patikrinti, ar stekas tuščias\n"
+      " 7. Patikrinti, ar stekas pilnas\n"
+      " 8. Pašalinti steką\n"
+      " 9. Atspausdinti meniu į ekraną\n"
+      "10. Baigti programą\n\n";
 
+   printf("\033[H\033[J");
    printf("%s", menu);
 
    while(1) {
       userInput = validateUserInput(USING_MENU);
       int tempABC, chosenStack;
 
-      if(userInput != 0 && userInput != 1 && userInput != 9) {
+      if(userInput != 10 && userInput != 1 && userInput != 9) {
          chosenStack = chooseStackABC(stacksABC, false);
          if(chosenStack < 0) {
             continue;
@@ -38,9 +37,6 @@ int main()
       }
 
       switch(userInput) {
-         case 0:
-            return 0;
-
          case 1:
             tempABC = chooseStackABC(stacksABC, true);
             stacksABC[tempABC] = createStack((&stacksABC[tempABC]), &stackNum, tempABC);
@@ -78,6 +74,9 @@ int main()
             printf("\033[H\033[J");
             printf("%s", menu);
             break;
+         
+         case 10:
+            return 0;
       }
    }
    return 0;

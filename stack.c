@@ -142,7 +142,7 @@ void push(stackProperties **stackP, int value) // Pushes element onto top of sta
 
    stack *newElement = (stack *)malloc(sizeof(stack));
    if (newElement == NULL || (*stackP)->counter >= MAX_SIZE) {
-      printf("Įvyko klaida (%d), maksimalus stekų kiekis pasiektas (%d).\n", ERR_STACK_OVERFLOW, MAX_SIZE);
+      printf("Įvyko klaida (%d), maksimalus steko elementų kiekis pasiektas (%d).\n", ERR_STACK_OVERFLOW, MAX_SIZE);
       return;
    }
    else {

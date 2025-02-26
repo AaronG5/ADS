@@ -8,7 +8,7 @@
 
 #include <stdbool.h>
 
-#define MAX_SIZE               2
+#define MAX_SIZE               5
 #define MAX_STACK_AMOUNT       3
 #define USING_MENU             1
 #define NOT_USING_MENU         0

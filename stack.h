@@ -1,6 +1,6 @@
 // aaron.gandzumian@mif.stud.vu.lt
 // Studento ID: 2413934
-// Programa sukuria stack'o tipo duomenų struktūrų masyvą ir realizuoja stack'o manipuliacijos funkcijas
+// Programa sukuria steko tipo duomenų struktūrų masyvą ir realizuoja steko manipuliacijos funkcijas
 // (createStack, push, pop, peek, displayStack, isStackEmpty, isStackFul, deleteStack)
 
 #ifndef HEADER_H

@@ -158,7 +158,7 @@ void push(stackProperties **stackP, int value) // Pushes element onto top of sta
 }
 
 int pop(stackProperties **stackP) { // Pops top element out of stack
-   if (*stackP == NULL) {
+   if ((*stackP)->top == NULL) {
       printf("Įvyko klaida (%d), stekas tuščias.\n", ERR_STACK_UNDERFLOW);
       return -1;
    }
@@ -173,7 +173,7 @@ int pop(stackProperties **stackP) { // Pops top element out of stack
       (*stackP)->top = (*stackP)->top->next;
       free(temp);
       (*stackP)->counter--;
-      printf("Skaičius %d sėkmingai išmestas iš steko %c.\n", topValue, (*stackP)->stackName);
+      printf("Skaičius %d sėkmingai pašalintas iš steko %c.\n", topValue, (*stackP)->stackName);
       return topValue;
    }
 }
@@ -221,5 +221,5 @@ void deleteStack(stackProperties **stackP) {
    }
    (*stackP) -> isCreated = false;
    
-   printf("Stekas %c sėkmingai ištrintas.\n", (*stackP)->stackName);
+   printf("Stekas %c sėkmingai pašalintas.\n", (*stackP)->stackName);
 }

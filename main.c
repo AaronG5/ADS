@@ -13,7 +13,7 @@ int main()
 
    char *menu = "\n 1. Sukurti tuščią steką\n"
       " 2. Įdėti reikšmę į steką (push)\n"
-      " 3. Išimti reikšmę iš steko (pop)\n"
+      " 3. Pašalinti viršutinę steko reikšmę (pop)\n"
       " 4. Patikrinti viršutinę steko reikšmę\n"
       " 5. Išspausdinti visas steko reikšmes\n"
       " 6. Patikrinti, ar stekas tuščias\n"

@@ -32,6 +32,19 @@ int chooseStackABC(stackProperties *stackP[], bool creationMode) {
    int stackVariant;
    char stackLetter, newLine;
 
+   if(!creationMode) {
+      bool foundCreatedStacks = false;
+      for(int i = 0; i < MAX_STACK_AMOUNT; ++i) {
+         if(stackP[i] != NULL && stackP[i]->isCreated) {
+            foundCreatedStacks = true;
+         }
+      }
+      if(!foundCreatedStacks) {
+         printf("Įvyko klaida (%d), nėra sukurtų stekų.\n", ERR_SEGMENTATION_FAULT);
+         return -1;
+      }
+   }
+
    printf("Pasirinkite steką iš apatinio sarašo:\n");
    
    if(creationMode) {
@@ -39,19 +52,12 @@ int chooseStackABC(stackProperties *stackP[], bool creationMode) {
    }
    
    else {
-      bool foundCreatedStacks = false;
       for(int i = 0; i < MAX_STACK_AMOUNT; ++i) {
          if(stackP[i] != NULL && stackP[i]->isCreated) {
             printf("[%c] ", stackP[i]->stackName);
-            foundCreatedStacks = true;
          }
       }
       printf("\n");
-
-      if(!foundCreatedStacks) {
-         printf("Įvyko klaida (%d), nėra sukurtų stekų.\n", ERR_SEGMENTATION_FAULT);
-         return -1;
-      }
    }
 
    while(1) {
@@ -219,7 +225,7 @@ void deleteStack(stackProperties **stackP) {
       (*stackP) -> top = (*stackP)->top->next;
       free(temp);
    }
-   (*stackP) -> isCreated = false;
+   (*stackP)->isCreated = false;
    
    printf("Stekas %c sėkmingai pašalintas.\n", (*stackP)->stackName);
 }

@@ -4,3 +4,4 @@
 .vscode
 *.o
 StackCopy
+*.dSYM/

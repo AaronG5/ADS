@@ -20,65 +20,32 @@ bool isBoardDominated(int matrix[N][N], bool isWhite) {
    return true;
 }
 
-bool isValidPlacement(int col, int row, int matrix[N][N]) {
-   if(matrix[col][row] == FREE_SQUARE) {
+bool isValidPlacement(int row, int col, int matrix[N][N]) {
+   if(matrix[row][col] == FREE_SQUARE) {
+      printf("Col = %d, Row = %d\n", col, row);
       return true;
    }
    return false;
 }
 
-void placeBishop(int col, int row, int matrix[N][N]) {
-   matrix[col][row] = STANDING; // Place bishop
+void placeBishop(int row, int col, int matrix[N][N]) {
+   matrix[row][col] = STANDING; // Place bishop
 
-   for(int i = col, j = row; i >= 0 && j >= 0; --i, --j) {
-      if(matrix[i][j] == FREE_SQUARE) {
-         matrix[i][j] = DOMINATED; // Cover dominated cells
-      }
+   for(int i = row, j = col; i >= 0 && j >= 0; --i, --j) {
+      if(matrix[i][j] == FREE_SQUARE) matrix[i][j] = DOMINATED; // Cover dominated cells
    }
-   for(int i = col, j = row; i < N && j >= 0; ++i, --j) {
-      if(matrix[i][j] == FREE_SQUARE) {
-         matrix[i][j] = DOMINATED;
-      }
+   for(int i = row, j = col; i < N && j >= 0; ++i, --j) {
+      if(matrix[i][j] == FREE_SQUARE) matrix[i][j] = DOMINATED;
    }
-   for(int i = col, j = row; i >= 0 && j < N; --i, ++j) {
-      if(matrix[i][j] == FREE_SQUARE) {
-         matrix[i][j] = DOMINATED;
-      }
+   for(int i = row, j = col; i >= 0 && j < N; --i, ++j) {
+      if(matrix[i][j] == FREE_SQUARE) matrix[i][j] = DOMINATED;
    }
-   for(int i = col, j = row; i < N && j < N; ++i, ++j) {
-      if(matrix[i][j] == FREE_SQUARE) {
-         matrix[i][j] = DOMINATED;
-      }
-   }
-}
-
-void removeBishop(int col, int row, int matrix[N][N]) {
-   matrix[col][row] = FREE_SQUARE; // Remove bishop
-
-   for(int i = col, j = row; i >= 0 && j >= 0; --i, --j) {
-      if(matrix[i][j] == DOMINATED) {
-         matrix[i][j] = FREE_SQUARE; // Uncover dominated cells
-      }
-   }
-   for(int i = col, j = row; i < N && j >= 0; ++i, --j) {
-      if(matrix[i][j] == DOMINATED) {
-         matrix[i][j] = FREE_SQUARE;
-      }
-   }
-   for(int i = col, j = row; i >= 0 && j < N; --i, ++j) {
-      if(matrix[i][j] == DOMINATED) {
-         matrix[i][j] = FREE_SQUARE;
-      }
-   }
-   for(int i = col, j = row; i < N && j < N; ++i, ++j) {
-      if(matrix[i][j] == DOMINATED) {
-         matrix[i][j] = FREE_SQUARE;
-      }
+   for(int i = row, j = col; i < N && j < N; ++i, ++j) {
+      if(matrix[i][j] == FREE_SQUARE) matrix[i][j] = DOMINATED;
    }
 }
    
-
-void printStep(int col, int row, int placedBishopAmount, bool isWhite, bool isValid, FILE *longFile) {
+void printStep(int row, int col, int placedBishopAmount, bool isWhite, bool isValid, FILE *longFile) {
    char depth[N] = "\0";
    char buffer[100];
    //int len = 0;
@@ -89,66 +56,52 @@ void printStep(int col, int row, int placedBishopAmount, bool isWhite, bool isVa
       depth[len+1] = '\0';
    }
 
-   sprintf(buffer, "\n%6d)  %s%c%d. Col=%d. Row=%d. %s", ++step, depth, (isWhite ? 'B' : 'J'), placedBishopAmount, col+1, row+1, (isValid ? "Gilyn." : "Netinka."));
+   sprintf(buffer, "\n%6lld)  %s%c%d. Col=%d. Row=%d. %s", ++step, depth, (isWhite ? 'B' : 'J'), placedBishopAmount, col+1, row+1, (isValid ? "Gilyn." : "Netinka."));
 
    printf("%s", buffer);
    //fprintf(longFile, "%s", buffer);
 }
 
-bool recursion(int col, int row, int matrix[N][N], int placedBishopAmount, bool isWhite, FILE *longFile) {
+bool recursion(int row, int col, int matrix[N][N], int placedBishopAmount, bool isWhite, FILE *longFile) {
    
    bool isDominated = isBoardDominated(matrix, isWhite);
-   if((row >= N || placedBishopAmount >= BISHOP_AMOUNT / 2) && !isDominated) {
-      printf(" Backtrack.");
-      return false;
-   }
-
-   if(isDominated && placedBishopAmount == BISHOP_AMOUNT / 2) {
-      printf("\nPavyko!\n");
-      if(isWhite) {
-         recursion(1, 0, matrix, 0, false, longFile);
-      }
-      return true;
-   }
-
-   bool isValid = isValidPlacement(col, row, matrix);
-   if(isValid) {
-      placeBishop(col, row, matrix);
-      ++placedBishopAmount;
-   }
-   printStep(col, row, placedBishopAmount, isWhite, isValid, longFile);
-
-   //printStep(col, row, placedBishopAmount, isWhite, longFile);
-   
-   if (col + 2 < N) {
-      if(recursion(col + 2, row, matrix, placedBishopAmount, isWhite, longFile)) {
+   if(row >= N || placedBishopAmount >= BISHOP_AMOUNT / 2) {
+      if(isDominated) {
+         printf("\nPavyko!\n");
+         if(isWhite) recursion(0, 1, matrix, 0, false, longFile);
          return true;
       }
       else {
-         return false;
+         // printf(" Backtrack.");
+         // return false;
       }
    }
-   // If we finished a row, move to the next row
    else {
-      if(isWhite) {
-         if(recursion((row + 1) % 2, row + 1, matrix, placedBishopAmount, isWhite, longFile)) {  // Start at (0, j + 1) or (1, j + 1)
-            return true;
+      for(int i = row; i < N; ++i) {
+         for(int j = col; j < N; j += 2) {
+
+            if(isWhite && (i + j) % 2 == 0) {
+               bool isValid = matrix[i][j] == FREE_SQUARE;
+               int previousMatrix[N][N];
+               if(isValid) {
+                  memcpy(previousMatrix, matrix, sizeof(matrix[0]) * N);
+                  ++placedBishopAmount;
+                  placeBishop(i, j, matrix);
+               }
+               printStep(i, j, placedBishopAmount, isWhite, isValid, longFile);
+               
+               if(recursion(i, j + 2, matrix, placedBishopAmount, isWhite, longFile)) return true;
+               printf(" Backtrack.");
+               memcpy(matrix, previousMatrix, sizeof(matrix[0]) * N);
+               --placedBishopAmount;
+            }   
          }
-         else {
-            removeBishop(col, row, matrix);
-            --placedBishopAmount;
-            return false;
-         }
-      }
-      else {
-         if(recursion(row % 2, row + 1, matrix, placedBishopAmount, isWhite, longFile)) {
-            return true;
-         }
-         else {
-            removeBishop(col, row, matrix);
-            --placedBishopAmount;
-            return false;
-         }
+         if(isWhite) col = (row + 1) % 2;
+         else col = row % 2;
       }
    }
+   return false;
 }
+
+// TODO: Make it start checking for white after checking all black
+// TODO: Make it find all possible variantions, not just the first one

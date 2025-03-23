@@ -4,8 +4,8 @@
 
 #include "bishop.h"
 
-int step = 0;
-int amount = 0;
+long long step = 0;
+long long amount = 0;
 
 int main() {
    
@@ -31,11 +31,30 @@ int main() {
    fprintf(longFile, "%s", buffer);
 
    recursion(col, row, matrix, 0, true, longFile);
-
-   sprintf(buffer, "\n\nTRECIA DALIS. Rezultatai\n   1) Uzkloti lenta imanoma: %d skirtingais budais.\n   2) Zingsniu prireike: %d.\n", amount, step);
+   
+   sprintf(buffer, "\n\nTRECIA DALIS. Rezultatai\n   1) Uzkloti lenta imanoma: %lld skirtingais budais.\n   2) Zingsniu prireike: %lld.\n", amount, step);
    printf("%s", buffer);
    fprintf(shortFile, "%s", buffer);
    fprintf(longFile, "%s", buffer);
+
+   printf("  ");
+   for(int j = 0; j < N; ++j) {
+      printf("  %c ", j + 65);
+   }
+   for(int i = N-1; i >= 0; --i) {
+      printf("\n  +");
+      for(int j = 0; j < N; ++j) {
+         printf("---+");
+      }
+      printf("\n%d |", i+1);
+      for(int j = 0; j < N; ++j) {
+         printf(" %d |", matrix[i][j]);
+      }
+   }
+   printf("\n  +");
+   for(int j = 0; j < N; ++j) {
+      printf("---+");
+   }
 
    fclose(shortFile);
    fclose(longFile);

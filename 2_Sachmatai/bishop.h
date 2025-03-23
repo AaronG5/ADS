@@ -11,16 +11,14 @@
 #define STANDING 1 
 #define DOMINATED 2
 
-extern int step;
-extern int amount;
+extern long long step;
+extern long long amount;
 
 bool isBoardDominated(int matrix[N][N], bool isWhite);
 
 bool isValidPlacement(int col, int row, int matrix[N][N]);
 
 void placeBishop(int col, int row, int matrix[N][N]);
-
-void removeBishop(int col, int row, int matrix[N][N]);
 
 void printStep(int col, int row, int placedBishopAmount, bool isWhite, bool isValid, FILE *longFile);
 

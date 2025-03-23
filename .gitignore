@@ -5,3 +5,4 @@
 *.o
 StackCopy
 *.dSYM/
+rook.c

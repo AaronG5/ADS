@@ -6,14 +6,6 @@
 
 // TODO: make it check for limit of bishop pieces (8)
 
-#define N 4
-#define BISHOP_AMOUNT 4
-
-// States of chess board cells
-#define FREE_SQUARE 0
-#define STANDING 1 
-#define DOMINATED 2
-
 bool isBoardDominated(int matrix[N][N], bool isWhite) {
    for(int i = 0; i < N; ++i) {
       for(int j = 0; j < N; ++j) {
@@ -60,109 +52,103 @@ void placeBishop(int col, int row, int matrix[N][N]) {
    }
 }
 
-void printStep(int col, int row, int placedBishopAmount, bool isWhite, FILE *longFile) {
+void removeBishop(int col, int row, int matrix[N][N]) {
+   matrix[col][row] = FREE_SQUARE; // Remove bishop
+
+   for(int i = col, j = row; i >= 0 && j >= 0; --i, --j) {
+      if(matrix[i][j] == DOMINATED) {
+         matrix[i][j] = FREE_SQUARE; // Uncover dominated cells
+      }
+   }
+   for(int i = col, j = row; i < N && j >= 0; ++i, --j) {
+      if(matrix[i][j] == DOMINATED) {
+         matrix[i][j] = FREE_SQUARE;
+      }
+   }
+   for(int i = col, j = row; i >= 0 && j < N; --i, ++j) {
+      if(matrix[i][j] == DOMINATED) {
+         matrix[i][j] = FREE_SQUARE;
+      }
+   }
+   for(int i = col, j = row; i < N && j < N; ++i, ++j) {
+      if(matrix[i][j] == DOMINATED) {
+         matrix[i][j] = FREE_SQUARE;
+      }
+   }
+}
+   
+
+void printStep(int col, int row, int placedBishopAmount, bool isWhite, bool isValid, FILE *longFile) {
    char depth[N] = "\0";
-   char buffer[150];
+   char buffer[100];
    //int len = 0;
 
-   for(int i = 0; i < placedBishopAmount; ++i) {
+   for(int i = 1; i < placedBishopAmount; ++i) {
       int len = strlen(depth);
       depth[len] = '-';
       depth[len+1] = '\0';
    }
 
-   sprintf(buffer, "\n%6d)  %sR%d. Col=%d. Row=%d.", ++step, depth, placedBishopAmount, col, row);
+   sprintf(buffer, "\n%6d)  %s%c%d. Col=%d. Row=%d. %s", ++step, depth, (isWhite ? 'B' : 'J'), placedBishopAmount, col+1, row+1, (isValid ? "Gilyn." : "Netinka."));
 
    printf("%s", buffer);
    //fprintf(longFile, "%s", buffer);
 }
 
-void recursion(int col, int row, int matrix[N][N], int placedBishopAmount, bool isWhite, FILE *longFile) {
+bool recursion(int col, int row, int matrix[N][N], int placedBishopAmount, bool isWhite, FILE *longFile) {
    
-   if(row > N || placedBishopAmount >= BISHOP_AMOUNT) {
-      return;
+   bool isDominated = isBoardDominated(matrix, isWhite);
+   if((row >= N || placedBishopAmount >= BISHOP_AMOUNT / 2) && !isDominated) {
+      printf(" Backtrack.");
+      return false;
    }
 
-   if(isBoardDominated(matrix, isWhite)) {
-      return;
+   if(isDominated && placedBishopAmount == BISHOP_AMOUNT / 2) {
+      printf("\nPavyko!\n");
+      if(isWhite) {
+         recursion(1, 0, matrix, 0, false, longFile);
+      }
+      return true;
    }
 
-   if(isValidPlacement(col, row, matrix)) {
+   bool isValid = isValidPlacement(col, row, matrix);
+   if(isValid) {
       placeBishop(col, row, matrix);
       ++placedBishopAmount;
-      printStep(col, row, placedBishopAmount, isWhite, longFile);
    }
+   printStep(col, row, placedBishopAmount, isWhite, isValid, longFile);
 
    //printStep(col, row, placedBishopAmount, isWhite, longFile);
    
    if (col + 2 < N) {
-      recursion(col + 2, row, matrix, placedBishopAmount, (isWhite ? true : false), longFile);
+      if(recursion(col + 2, row, matrix, placedBishopAmount, isWhite, longFile)) {
+         return true;
+      }
+      else {
+         return false;
+      }
    }
    // If we finished a row, move to the next row
    else {
       if(isWhite) {
-         recursion((row + 1) % 2, row + 1, matrix, placedBishopAmount, (isWhite ? true : false), longFile);  // Start at (0, j + 1) or (1, j + 1)
+         if(recursion((row + 1) % 2, row + 1, matrix, placedBishopAmount, isWhite, longFile)) {  // Start at (0, j + 1) or (1, j + 1)
+            return true;
+         }
+         else {
+            removeBishop(col, row, matrix);
+            --placedBishopAmount;
+            return false;
+         }
       }
       else {
-         recursion(row % 2, row + 1, matrix, placedBishopAmount, (isWhite ? true : false), longFile);
+         if(recursion(row % 2, row + 1, matrix, placedBishopAmount, isWhite, longFile)) {
+            return true;
+         }
+         else {
+            removeBishop(col, row, matrix);
+            --placedBishopAmount;
+            return false;
+         }
       }
    }
-   
-
-   // Tikriname kiekviena karta kai
-   // for(int i = 0, j = 0; i < N; --i, --j) {
-   //    if(matrix[i][j]) {
-   //       return false; // cant place here
-   //    }
-   // }
-   // and so on with ++i, --j;  --i, ++j;  ++i, ++j;
-
-   // Check if board is dominated:
-   // for(int i = 0; i < N; ++i) {
-   //    for(int j = 0; j < N; ++j) {
-   //       if(!matrix[i][j]) {
-   //          return false; // Not dominated
-   //       }
-   //    }
-   // }
-   
-   
-   
-   // bool deeper;
-   // int oldAmount = amount;
-
-
-   // if(row == N) {
-   //    printf("End reached! ");
-   //    fprintf(longFile, "End reached! ");
-   //    for(int i = 0; i < row; ++i) {
-   //       printf("%c ", combination[i] + 65);
-   //       fprintf(longFile, "%c ", combination[i] + 65);
-   //    }
-   //    ++amount;
-   //    return;
-   // }
-
-   // for(int i = 0; i < N; ++i) {
-   //    deeper = true;
-
-      
-   //    // if(usedCol[i]) {
-   //    //    deeper = false;
-   //    // }
-
-   //    stepInfo(buffer, row + 1, i + 1, deeper, false, longFile);
-      
-   //    if(deeper) {
-   //       //usedCol[i] = true;
-   //       combination[row] = i;
-   //       recursion(row+1, combination, buffer, longFile);
-   //       // usedCol[i] = false;
-   //    }
-   // }
-   // if(oldAmount < amount) {
-   //    printf("Backtrack. ");
-   //    fprintf(longFile, "Backtrack. ");
-   // }
 }
-

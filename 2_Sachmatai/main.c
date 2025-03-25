@@ -9,7 +9,7 @@ long long amount = 0;
 
 int main() {
    
-   int col = 0, row = 0, combination[N], matrix[N][N] = {FREE_SQUARE};
+   unsigned col = 0, row = 0, answer[2][N][N], matrix[N][N] = {FREE_SQUARE};
    
    char buffer[350];
    char *trumpas = "out-trumpas.txt";
@@ -18,42 +18,54 @@ int main() {
    FILE *shortFile = fopen(trumpas, "w");
    FILE *longFile = fopen(ilgas, "w");
 
-   sprintf(buffer, "2-oji Uzduotis. 7 variantas. Aaron Gandzumian, PS 2 grupe 1 pogrupis. Data: 2025-03-21\n"
-      "PIRMA DALIS. Informacija ir pradiniai duomenys\n   "
+   sprintf(buffer, "2-oji Uzduotis. 7 variantas. Aaron Gandzumian, PS 2 grupe 1 pogrupis. Data: 2025-03-21\n\n"
+      "Salyga: sustatyti N dydzio sachmatu lentoje 8 rikius, kad kiekviena langeli kirstu bent vienas rikis.\n"
+      "APRIBOJIMAI. Sachmatu lenta turetu buti 7x7, 8x8 arba 9x9 dydzio.\n\n"
+      "SPRENDIMO IDEJA. Perrenkami visi galimi 4 juodu rikiu variantai, nuosekliai, per\n");
+   printf("%s", buffer);
+   fprintf(shortFile, "%s", buffer);
+   fprintf(longFile, "%s", buffer);
+
+   sprintf(buffer, "eilute, pradedant nuo 1 iki 8, o eiluteje per stulpelius, pradedant nuo A iki H, iki\n"
+      "kol yra kertami visi juodi langeliai. Po to yra perrenkami 4 balti rikiai, tokiu pat \n" 
+      "principu kaip ir juodieji.\n"
+      "Netinka - rikiai nekerta visu juodu/baltu langeliu, BACKTRACK - griztama prie praeito rikio.\n"
+      "J - juodasis rikis.   B - baltasis rikis.\n");
+   printf("%s", buffer);
+   fprintf(shortFile, "%s", buffer);
+   fprintf(longFile, "%s", buffer);
+
+   printBoard(matrix, shortFile, longFile);
+
+   sprintf(buffer, "\nPIRMA DALIS. Informacija ir pradiniai duomenys\n   "
       "1. SALYGA. Sustatyti N x N (kai N = 7, 8, 9) sachmatu lentoje 8 rikius, kad kiekviena langeli kirstu bent vienas rikis, rasti imanomus sprendimus.\n   "
       "2. Lenta: %dx%d.\n   3. Rikiu skaicius: %d.\n", N, N, BISHOP_AMOUNT);
    printf("%s", buffer);
    fprintf(shortFile, "%s", buffer);
    fprintf(longFile, "%s", buffer);
 
-   sprintf(buffer, "\nANTRA DALIS. Vykdymas");
+   sprintf(buffer, "\nANTRA DALIS. Vykdymas.   (X, Y) - X atitinka stulpelius, Y atitinka eilutes");
    printf("%s", buffer);
    fprintf(longFile, "%s", buffer);
 
-   recursion(col, row, matrix, 0, true, longFile);
+   solve(col, row, matrix, answer, 1, true, longFile);
    
-   sprintf(buffer, "\n\nTRECIA DALIS. Rezultatai\n   1) Uzkloti lenta imanoma: %lld skirtingais budais.\n   2) Zingsniu prireike: %lld.\n", amount, step);
+   char resultMsg[200];
+   if(amount) {
+      sprintf(resultMsg, "1) Uzkloti lenta imanoma: %lld skirtingais budais.\n", amount);
+   }
+   else {
+      sprintf(resultMsg, "Nepavyko uzkloti lentos.\n");
+   }
+
+   sprintf(buffer, "\n\nTRECIA DALIS. Rezultatai.\n   %s   2) Zingsniu prireike: %lld.\n", resultMsg, step);
    printf("%s", buffer);
    fprintf(shortFile, "%s", buffer);
    fprintf(longFile, "%s", buffer);
 
-   printf("  ");
-   for(int j = 0; j < N; ++j) {
-      printf("  %c ", j + 65);
-   }
-   for(int i = N-1; i >= 0; --i) {
-      printf("\n  +");
-      for(int j = 0; j < N; ++j) {
-         printf("---+");
-      }
-      printf("\n%d |", i+1);
-      for(int j = 0; j < N; ++j) {
-         printf(" %d |", matrix[i][j]);
-      }
-   }
-   printf("\n  +");
-   for(int j = 0; j < N; ++j) {
-      printf("---+");
+   if(amount) {
+      printBoard(answer[0], shortFile, longFile);
+      printBoard(answer[1], shortFile, longFile);
    }
 
    fclose(shortFile);

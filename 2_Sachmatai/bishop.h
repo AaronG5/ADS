@@ -3,8 +3,8 @@
 
 #include <stdio.h>
 
-#define N 5
-#define BISHOP_AMOUNT 6
+#define N 9
+#define BISHOP_AMOUNT 8
 
 // Board cell states
 #define FREE_SQUARE 0
@@ -14,15 +14,16 @@
 extern long long step;
 extern long long amount;
 
-bool isBoardDominated(int matrix[N][N], bool isWhite);
+void printBoard(unsigned matrix[N][N], FILE *shortFile, FILE *longFile);
 
-bool isValidPlacement(int col, int row, int matrix[N][N]);
+bool isBoardDominated(unsigned matrix[N][N], bool isBlack);
 
-void placeBishop(int col, int row, int matrix[N][N]);
+bool isValidPlacement(unsigned col, unsigned row, unsigned matrix[N][N]);
 
-void printStep(int col, int row, int placedBishopAmount, bool isWhite, bool isValid, FILE *longFile);
+void placeBishop(unsigned col, unsigned row, unsigned matrix[N][N]);
 
-bool recursion(int col, int row, int matrix[N][N], int placedBishopAmount, bool isWhite, FILE *longFile);
+void printStep(unsigned col, unsigned row, unsigned placedBishopAmount, bool isBlack, bool isValid, FILE *longFile);
 
+void solve(unsigned col, unsigned row, unsigned matrix[N][N], unsigned answer[2][N][N], unsigned placedBishopAmount, bool isBlack, FILE *longFile);
 
 #endif

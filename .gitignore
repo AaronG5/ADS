@@ -1,6 +1,5 @@
 .DS_Store
 *.md
-*.txt
 .vscode
 *.o
 StackCopy

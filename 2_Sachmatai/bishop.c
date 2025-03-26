@@ -4,6 +4,12 @@
 
 #include "bishop.h"
 
+void print(char *buffer, FILE *shortFile, FILE *longFile) {
+   printf("%s", buffer);
+   fprintf(shortFile, "%s", buffer);
+   fprintf(longFile, "%s", buffer);
+}
+
 char *reverseRow(char *row) {
    int left = 0;
    int right = strlen(row) - 1;
@@ -143,8 +149,8 @@ void solve(unsigned row, unsigned col, unsigned matrix[N][N], unsigned answer[3]
 
             if(isBoardDominated(matrix, isBlack) && placedBishopAmount == BISHOP_AMOUNT / 2) {
                if(isBlack) {
-                  printf(" Pavyko. Laikas skaiciuoti baltus rikius.");
-                  fprintf(longFile, " Pavyko. Laikas skaiciuoti baltus rikius.");
+                  printf(" Pavyko. Pereinama i baltu rikiu skaiciavima.");
+                  fprintf(longFile, " Pavyko. Pereinama i baltu rikiu skaiciavima.");
                   solve(0, 1, matrix, answer, 1, false, longFile);
                   memcpy(matrix, previousMatrix, sizeof(matrix[0]) * N);
                }

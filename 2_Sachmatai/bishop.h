@@ -3,7 +3,6 @@
 
 #include <stdio.h>
 
-#define N 8
 #define BISHOP_AMOUNT 8
 
 // Board cell states
@@ -13,12 +12,13 @@
 
 extern long long step;
 extern long long amount;
+extern int N;
 
-void print(char *buffer, FILE *shortFile, FILE *longFile);
+void print(char *buffer, FILE *outputFile);
 
 char *reverseRow(char *row);
 
-void printBoard(unsigned matrix[N][N], FILE *shortFile, FILE *longFile);
+void printBoard(unsigned matrix[N][N], FILE *outputFile);
 
 bool isBoardDominated(unsigned matrix[N][N], bool isBlack);
 
@@ -26,8 +26,8 @@ bool isValidPlacement(unsigned col, unsigned row, unsigned matrix[N][N]);
 
 void placeBishop(unsigned col, unsigned row, unsigned matrix[N][N]);
 
-void printStep(unsigned col, unsigned row, unsigned placedBishopAmount, bool isBlack, bool isValid, FILE *longFile);
+void printStep(unsigned col, unsigned row, unsigned placedBishopAmount, bool isBlack, bool isValid, FILE *outputFile);
 
-void solve(unsigned row, unsigned col, unsigned matrix[N][N], unsigned answer[3][N][N], unsigned placedBishopAmount, bool isBlack, FILE *longFile);
+void solve(unsigned row, unsigned col, unsigned matrix[N][N], unsigned answer[3][N][N], unsigned placedBishopAmount, bool isBlack, FILE *outputFile);
 
 #endif

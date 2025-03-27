@@ -1,0 +1,254 @@
+2-oji Uzduotis. 7 variantas. Aaron Gandzumian, PS 2 grupe 1 pogrupis. Data: 25-03-2025
+
+Salyga: sustatyti N dydzio sachmatu lentoje 8 rikius, kad kiekviena langeli kirstu bent vienas rikis.
+APRIBOJIMAI. Sachmatu lenta turetu buti 7x7, 8x8 arba 9x9 dydzio.
+
+SPRENDIMO IDEJA. Perrenkami visi galimi 4 juodu rikiu variantai, nuosekliai, per
+eilute, pradedant nuo 1 iki 8, o eiluteje per stulpelius, pradedant nuo A iki H, iki
+kol yra kertami visi juodi langeliai. Po to yra perrenkami 4 balti rikiai, tokiu pat 
+principu kaip ir juodieji.
+Netinka - rikiai nekerta visu juodu/baltu langeliu, BACKTRACK - griztama prie praeito rikio.
+J - juodasis rikis.   B - baltasis rikis.
+
+  +----+----+----+----+
+4 |    |    |    |    |
+  +----+----+----+----+
+3 |    |    |    |    |
+  +----+----+----+----+
+2 |    |    |    |    |
+  +----+----+----+----+
+1 |    |    |    |    |
+  +----+----+----+----+
+    A    B    C    D  
+
+PIRMA DALIS. Informacija ir pradiniai duomenys
+   1. SALYGA. Sustatyti N x N (kai N = 7, 8, 9) sachmatu lentoje 8 rikius, kad kiekviena langeli kirstu bent vienas rikis, rasti imanomus sprendimus.
+   2. Lenta: 4x4.
+   3. Rikiu skaicius: 8.
+
+ANTRA DALIS. Vykdymas.   (X, Y) - X atitinka stulpelius, Y atitinka eilutes
+     1)  J1 stovi langelyje A, 1. Tinka
+     2)  -J2 stovi langelyje C, 1. Tinka
+     3)  --J3 stovi langelyje B, 2. Netinka
+     4)  --J3 stovi langelyje D, 2. Netinka
+     5)  --J3 stovi langelyje A, 3. Netinka
+     6)  --J3 stovi langelyje C, 3. Netinka
+     7)  --J3 stovi langelyje B, 4. Tinka Pavyko. Pereinama i baltu rikiu skaiciavima.
+     8)  B1 stovi langelyje B, 1. Tinka
+     9)  -B2 stovi langelyje D, 1. Tinka
+    10)  --B3 stovi langelyje A, 2. Netinka
+    11)  --B3 stovi langelyje C, 2. Netinka
+    12)  --B3 stovi langelyje B, 3. Netinka
+    13)  --B3 stovi langelyje D, 3. Netinka
+    14)  --B3 stovi langelyje A, 4. Netinka
+    15)  --B3 stovi langelyje C, 4. Tinka BACKTRACK. BACKTRACK.
+    16)  -B2 stovi langelyje A, 2. Netinka
+    17)  -B2 stovi langelyje C, 2. Netinka
+    18)  -B2 stovi langelyje B, 3. Tinka
+    19)  --B3 stovi langelyje D, 3. Netinka
+    20)  --B3 stovi langelyje A, 4. Netinka
+    21)  --B3 stovi langelyje C, 4. Netinka BACKTRACK.
+    22)  -B2 stovi langelyje D, 3. Netinka
+    23)  -B2 stovi langelyje A, 4. Tinka
+    24)  --B3 stovi langelyje C, 4. Tinka BACKTRACK. BACKTRACK.
+    25)  -B2 stovi langelyje C, 4. Tinka BACKTRACK. BACKTRACK.
+    26)  B1 stovi langelyje D, 1. Tinka
+    27)  -B2 stovi langelyje A, 2. Tinka
+    28)  --B3 stovi langelyje C, 2. Netinka
+    29)  --B3 stovi langelyje B, 3. Netinka
+    30)  --B3 stovi langelyje D, 3. Tinka Rastas atsakymas Nr. 1
+    31)  ---B4 stovi langelyje A, 4. Netinka
+    32)  ---B4 stovi langelyje C, 4. Netinka BACKTRACK.
+    33)  --B3 stovi langelyje A, 4. Netinka
+    34)  --B3 stovi langelyje C, 4. Netinka BACKTRACK.
+    35)  -B2 stovi langelyje C, 2. Netinka
+    36)  -B2 stovi langelyje B, 3. Netinka
+    37)  -B2 stovi langelyje D, 3. Tinka
+    38)  --B3 stovi langelyje A, 4. Netinka
+    39)  --B3 stovi langelyje C, 4. Netinka BACKTRACK.
+    40)  -B2 stovi langelyje A, 4. Netinka
+    41)  -B2 stovi langelyje C, 4. Tinka BACKTRACK. BACKTRACK.
+    42)  B1 stovi langelyje A, 2. Tinka
+    43)  -B2 stovi langelyje C, 2. Tinka
+    44)  --B3 stovi langelyje B, 3. Netinka
+    45)  --B3 stovi langelyje D, 3. Netinka
+    46)  --B3 stovi langelyje A, 4. Netinka
+    47)  --B3 stovi langelyje C, 4. Netinka BACKTRACK.
+    48)  -B2 stovi langelyje B, 3. Netinka
+    49)  -B2 stovi langelyje D, 3. Tinka
+    50)  --B3 stovi langelyje A, 4. Tinka Rastas atsakymas Nr. 2
+    51)  ---B4 stovi langelyje C, 4. Netinka BACKTRACK.
+    52)  --B3 stovi langelyje C, 4. Netinka BACKTRACK.
+    53)  -B2 stovi langelyje A, 4. Tinka
+    54)  --B3 stovi langelyje C, 4. Netinka BACKTRACK.
+    55)  -B2 stovi langelyje C, 4. Netinka BACKTRACK.
+    56)  B1 stovi langelyje C, 2. Tinka
+    57)  -B2 stovi langelyje B, 3. Netinka
+    58)  -B2 stovi langelyje D, 3. Netinka
+    59)  -B2 stovi langelyje A, 4. Netinka
+    60)  -B2 stovi langelyje C, 4. Tinka BACKTRACK. BACKTRACK.
+    61)  B1 stovi langelyje B, 3. Tinka
+    62)  -B2 stovi langelyje D, 3. Tinka
+    63)  --B3 stovi langelyje A, 4. Netinka
+    64)  --B3 stovi langelyje C, 4. Netinka BACKTRACK.
+    65)  -B2 stovi langelyje A, 4. Netinka
+    66)  -B2 stovi langelyje C, 4. Netinka BACKTRACK.
+    67)  B1 stovi langelyje D, 3. Tinka
+    68)  -B2 stovi langelyje A, 4. Tinka
+    69)  --B3 stovi langelyje C, 4. Netinka BACKTRACK.
+    70)  -B2 stovi langelyje C, 4. Netinka BACKTRACK.
+    71)  B1 stovi langelyje A, 4. Tinka
+    72)  -B2 stovi langelyje C, 4. Tinka BACKTRACK. BACKTRACK.
+    73)  B1 stovi langelyje C, 4. Tinka BACKTRACK.
+    74)  ---J4 stovi langelyje D, 4. Netinka BACKTRACK.
+    75)  --J3 stovi langelyje D, 4. Netinka BACKTRACK.
+    76)  -J2 stovi langelyje B, 2. Netinka
+    77)  -J2 stovi langelyje D, 2. Tinka
+    78)  --J3 stovi langelyje A, 3. Tinka Pavyko. Pereinama i baltu rikiu skaiciavima.
+    79)  B1 stovi langelyje B, 1. Tinka
+    80)  -B2 stovi langelyje D, 1. Tinka
+    81)  --B3 stovi langelyje A, 2. Netinka
+    82)  --B3 stovi langelyje C, 2. Netinka
+    83)  --B3 stovi langelyje B, 3. Netinka
+    84)  --B3 stovi langelyje D, 3. Netinka
+    85)  --B3 stovi langelyje A, 4. Netinka
+    86)  --B3 stovi langelyje C, 4. Tinka BACKTRACK. BACKTRACK.
+    87)  -B2 stovi langelyje A, 2. Netinka
+    88)  -B2 stovi langelyje C, 2. Netinka
+    89)  -B2 stovi langelyje B, 3. Tinka
+    90)  --B3 stovi langelyje D, 3. Netinka
+    91)  --B3 stovi langelyje A, 4. Netinka
+    92)  --B3 stovi langelyje C, 4. Netinka BACKTRACK.
+    93)  -B2 stovi langelyje D, 3. Netinka
+    94)  -B2 stovi langelyje A, 4. Tinka
+    95)  --B3 stovi langelyje C, 4. Tinka BACKTRACK. BACKTRACK.
+    96)  -B2 stovi langelyje C, 4. Tinka BACKTRACK. BACKTRACK.
+    97)  B1 stovi langelyje D, 1. Tinka
+    98)  -B2 stovi langelyje A, 2. Tinka
+    99)  --B3 stovi langelyje C, 2. Netinka
+   100)  --B3 stovi langelyje B, 3. Netinka
+   101)  --B3 stovi langelyje D, 3. Tinka Rastas atsakymas Nr. 3
+   102)  ---B4 stovi langelyje A, 4. Netinka
+   103)  ---B4 stovi langelyje C, 4. Netinka BACKTRACK.
+   104)  --B3 stovi langelyje A, 4. Netinka
+   105)  --B3 stovi langelyje C, 4. Netinka BACKTRACK.
+   106)  -B2 stovi langelyje C, 2. Netinka
+   107)  -B2 stovi langelyje B, 3. Netinka
+   108)  -B2 stovi langelyje D, 3. Tinka
+   109)  --B3 stovi langelyje A, 4. Netinka
+   110)  --B3 stovi langelyje C, 4. Netinka BACKTRACK.
+   111)  -B2 stovi langelyje A, 4. Netinka
+   112)  -B2 stovi langelyje C, 4. Tinka BACKTRACK. BACKTRACK.
+   113)  B1 stovi langelyje A, 2. Tinka
+   114)  -B2 stovi langelyje C, 2. Tinka
+   115)  --B3 stovi langelyje B, 3. Netinka
+   116)  --B3 stovi langelyje D, 3. Netinka
+   117)  --B3 stovi langelyje A, 4. Netinka
+   118)  --B3 stovi langelyje C, 4. Netinka BACKTRACK.
+   119)  -B2 stovi langelyje B, 3. Netinka
+   120)  -B2 stovi langelyje D, 3. Tinka
+   121)  --B3 stovi langelyje A, 4. Tinka Rastas atsakymas Nr. 4
+   122)  ---B4 stovi langelyje C, 4. Netinka BACKTRACK.
+   123)  --B3 stovi langelyje C, 4. Netinka BACKTRACK.
+   124)  -B2 stovi langelyje A, 4. Tinka
+   125)  --B3 stovi langelyje C, 4. Netinka BACKTRACK.
+   126)  -B2 stovi langelyje C, 4. Netinka BACKTRACK.
+   127)  B1 stovi langelyje C, 2. Tinka
+   128)  -B2 stovi langelyje B, 3. Netinka
+   129)  -B2 stovi langelyje D, 3. Netinka
+   130)  -B2 stovi langelyje A, 4. Netinka
+   131)  -B2 stovi langelyje C, 4. Tinka BACKTRACK. BACKTRACK.
+   132)  B1 stovi langelyje B, 3. Tinka
+   133)  -B2 stovi langelyje D, 3. Tinka
+   134)  --B3 stovi langelyje A, 4. Netinka
+   135)  --B3 stovi langelyje C, 4. Netinka BACKTRACK.
+   136)  -B2 stovi langelyje A, 4. Netinka
+   137)  -B2 stovi langelyje C, 4. Netinka BACKTRACK.
+   138)  B1 stovi langelyje D, 3. Tinka
+   139)  -B2 stovi langelyje A, 4. Tinka
+   140)  --B3 stovi langelyje C, 4. Netinka BACKTRACK.
+   141)  -B2 stovi langelyje C, 4. Netinka BACKTRACK.
+   142)  B1 stovi langelyje A, 4. Tinka
+   143)  -B2 stovi langelyje C, 4. Tinka BACKTRACK. BACKTRACK.
+   144)  B1 stovi langelyje C, 4. Tinka BACKTRACK.
+   145)  ---J4 stovi langelyje C, 3. Netinka
+   146)  ---J4 stovi langelyje B, 4. Netinka
+   147)  ---J4 stovi langelyje D, 4. Netinka BACKTRACK.
+   148)  --J3 stovi langelyje C, 3. Netinka
+   149)  --J3 stovi langelyje B, 4. Netinka
+   150)  --J3 stovi langelyje D, 4. Netinka BACKTRACK.
+   151)  -J2 stovi langelyje A, 3. Tinka
+   152)  --J3 stovi langelyje C, 3. Netinka
+   153)  --J3 stovi langelyje B, 4. Netinka
+   154)  --J3 stovi langelyje D, 4. Netinka BACKTRACK.
+   155)  -J2 stovi langelyje C, 3. Netinka
+   156)  -J2 stovi langelyje B, 4. Tinka
+   157)  --J3 stovi langelyje D, 4. Netinka BACKTRACK.
+   158)  -J2 stovi langelyje D, 4. Netinka BACKTRACK.
+   159)  J1 stovi langelyje C, 1. Tinka
+   160)  -J2 stovi langelyje B, 2. Netinka
+   161)  -J2 stovi langelyje D, 2. Netinka
+   162)  -J2 stovi langelyje A, 3. Netinka
+   163)  -J2 stovi langelyje C, 3. Tinka
+   164)  --J3 stovi langelyje B, 4. Netinka
+   165)  --J3 stovi langelyje D, 4. Netinka BACKTRACK.
+   166)  -J2 stovi langelyje B, 4. Tinka
+   167)  --J3 stovi langelyje D, 4. Netinka BACKTRACK. BACKTRACK.
+   168)  -J2 stovi langelyje D, 4. Netinka BACKTRACK. BACKTRACK.
+   169)  J1 stovi langelyje B, 2. Tinka
+   170)  -J2 stovi langelyje D, 2. Tinka
+   171)  --J3 stovi langelyje A, 3. Netinka
+   172)  --J3 stovi langelyje C, 3. Netinka
+   173)  --J3 stovi langelyje B, 4. Netinka
+   174)  --J3 stovi langelyje D, 4. Netinka BACKTRACK.
+   175)  -J2 stovi langelyje A, 3. Netinka
+   176)  -J2 stovi langelyje C, 3. Netinka
+   177)  -J2 stovi langelyje B, 4. Tinka
+   178)  --J3 stovi langelyje D, 4. Netinka BACKTRACK.
+   179)  -J2 stovi langelyje D, 4. Netinka BACKTRACK.
+   180)  J1 stovi langelyje D, 2. Tinka
+   181)  -J2 stovi langelyje A, 3. Tinka
+   182)  --J3 stovi langelyje C, 3. Netinka
+   183)  --J3 stovi langelyje B, 4. Netinka
+   184)  --J3 stovi langelyje D, 4. Netinka BACKTRACK. BACKTRACK.
+   185)  -J2 stovi langelyje C, 3. Netinka
+   186)  -J2 stovi langelyje B, 4. Netinka
+   187)  -J2 stovi langelyje D, 4. Netinka BACKTRACK. BACKTRACK.
+   188)  J1 stovi langelyje A, 3. Tinka
+   189)  -J2 stovi langelyje C, 3. Tinka
+   190)  --J3 stovi langelyje B, 4. Netinka
+   191)  --J3 stovi langelyje D, 4. Netinka BACKTRACK.
+   192)  -J2 stovi langelyje B, 4. Netinka
+   193)  -J2 stovi langelyje D, 4. Netinka BACKTRACK. BACKTRACK.
+   194)  J1 stovi langelyje C, 3. Tinka
+   195)  -J2 stovi langelyje B, 4. Netinka
+   196)  -J2 stovi langelyje D, 4. Netinka BACKTRACK.
+   197)  J1 stovi langelyje B, 4. Tinka
+   198)  -J2 stovi langelyje D, 4. Netinka BACKTRACK. BACKTRACK.
+   199)  J1 stovi langelyje D, 4. Netinka BACKTRACK.
+
+TRECIA DALIS. Rezultatai.
+   1) Uzkloti lenta imanoma: 4 skirtingais budais.
+   2) Zingsniu prireike: 199.
+
+  +----+----+----+----+
+4 |    | J4 |    |    |
+  +----+----+----+----+
+3 |    |    |    | B4 |
+  +----+----+----+----+
+2 | B3 |    |    |    |
+  +----+----+----+----+
+1 | J2 |    | J3 | B2 |
+  +----+----+----+----+
+    A    B    C    D  
+
+  +----+----+----+----+
+4 | B4 |    |    |    |
+  +----+----+----+----+
+3 | J4 |    |    | B3 |
+  +----+----+----+----+
+2 | B2 |    |    | J3 |
+  +----+----+----+----+
+1 | J2 |    |    |    |
+  +----+----+----+----+
+    A    B    C    D  

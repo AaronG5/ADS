@@ -4,10 +4,9 @@
 
 #include "bishop.h"
 
-void print(char *buffer, FILE *shortFile, FILE *longFile) {
+void print(char *buffer, FILE *outputFile) {
    printf("%s", buffer);
-   fprintf(shortFile, "%s", buffer);
-   fprintf(longFile, "%s", buffer);
+   fprintf(outputFile, "%s", buffer);
 }
 
 char *reverseRow(char *row) {
@@ -24,7 +23,7 @@ char *reverseRow(char *row) {
    return row;
 }
 
-void printBoard(unsigned matrix[N][N], FILE *shortFile, FILE *longFile) {
+void printBoard(unsigned matrix[N][N], FILE *outputFile) {
    char buffer[1000] = "\0";
    char temp[10];
    int whiteBishopAmount = 4, blackBishopAmount = 4;
@@ -75,8 +74,7 @@ void printBoard(unsigned matrix[N][N], FILE *shortFile, FILE *longFile) {
       strcat(buffer, temp);
    }
    printf("%s\n", buffer);
-   fprintf(shortFile, "%s\n", buffer);
-   fprintf(longFile, "%s\n", buffer);
+   fprintf(outputFile, "%s\n", buffer);
 }
 
 bool isBoardDominated(unsigned matrix[N][N], bool isBlack) {
@@ -118,7 +116,7 @@ void placeBishop(unsigned row, unsigned col, unsigned matrix[N][N]) {
    }
 }
    
-void printStep(unsigned row, unsigned col, unsigned placedBishopAmount, bool isBlack, bool isValid, FILE *longFile) {
+void printStep(unsigned row, unsigned col, unsigned placedBishopAmount, bool isBlack, bool isValid, FILE *outputFile) {
    char depth[5] = "\0";
    char buffer[100];
    char statusMsg[10];
@@ -139,10 +137,10 @@ void printStep(unsigned row, unsigned col, unsigned placedBishopAmount, bool isB
    sprintf(buffer, "\n%6lld)  %s%c%d stovi langelyje %c, %d. %s", ++step, depth, (isBlack ? 'J' : 'B'), placedBishopAmount, col+65, row+1, statusMsg);
 
    printf("%s", buffer);
-   fprintf(longFile, "%s", buffer);
+   fprintf(outputFile, "%s", buffer);
 }
 
-void solve(unsigned row, unsigned col, unsigned matrix[N][N], unsigned answer[3][N][N], unsigned placedBishopAmount, bool isBlack, FILE *longFile) {
+void solve(unsigned row, unsigned col, unsigned matrix[N][N], unsigned answer[3][N][N], unsigned placedBishopAmount, bool isBlack, FILE *outputFile) {
       for(int i = row; i < N; ++i) {
          int previousMatrix[N][N];
          for(int j = col; j < N; j += 2) { // Start iterating through chess board
@@ -150,8 +148,8 @@ void solve(unsigned row, unsigned col, unsigned matrix[N][N], unsigned answer[3]
             if(isBoardDominated(matrix, isBlack) && placedBishopAmount == BISHOP_AMOUNT / 2) {
                if(isBlack) {
                   printf(" Pavyko. Pereinama i baltu rikiu skaiciavima.");
-                  fprintf(longFile, " Pavyko. Pereinama i baltu rikiu skaiciavima.");
-                  solve(0, 1, matrix, answer, 1, false, longFile);
+                  fprintf(outputFile, " Pavyko. Pereinama i baltu rikiu skaiciavima.");
+                  solve(0, 1, matrix, answer, 1, false, outputFile);
                   memcpy(matrix, previousMatrix, sizeof(matrix[0]) * N);
                }
                else {
@@ -163,7 +161,7 @@ void solve(unsigned row, unsigned col, unsigned matrix[N][N], unsigned answer[3]
                   }
                   ++amount;
                   printf(" Rastas atsakymas Nr. %lld", amount);
-                  fprintf(longFile, " Rastas atsakymas Nr. %lld", amount);
+                  fprintf(outputFile, " Rastas atsakymas Nr. %lld", amount);
                   memcpy(matrix, previousMatrix, sizeof(matrix[0]) * N);
                }
             }
@@ -180,11 +178,11 @@ void solve(unsigned row, unsigned col, unsigned matrix[N][N], unsigned answer[3]
                   memcpy(matrix, previousMatrix, sizeof(matrix[0]) * N); // Return board layout if invalid placement
                }
             }
-            printStep(i, j, placedBishopAmount, isBlack, isPlacementValid, longFile);
+            printStep(i, j, placedBishopAmount, isBlack, isPlacementValid, outputFile);
             if(isPlacementValid && placedBishopAmount != BISHOP_AMOUNT / 2) {
-               solve(i, j + 2, matrix, answer, placedBishopAmount + 1, isBlack, longFile);
+               solve(i, j + 2, matrix, answer, placedBishopAmount + 1, isBlack, outputFile);
                printf(" BACKTRACK.");
-               fprintf(longFile, " BACKTRACK.");
+               fprintf(outputFile, " BACKTRACK.");
                memcpy(matrix, previousMatrix, sizeof(matrix[0]) * N);
             }
          }

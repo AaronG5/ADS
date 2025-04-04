@@ -4,6 +4,7 @@
 #include <stdio.h>
 
 #define BISHOP_AMOUNT 8
+#define AMOUNT_OF_ANSWERS 10
 
 // Board cell states
 #define FREE_SQUARE 0
@@ -18,7 +19,7 @@ void print(char *buffer, FILE *outputFile);
 
 char *reverseRow(char *row);
 
-void printBoard(unsigned matrix[N][N], FILE *outputFile);
+void printBoard(unsigned matrix[N][N], FILE *outputFile, int num);
 
 bool isBoardDominated(unsigned matrix[N][N], bool isBlack);
 

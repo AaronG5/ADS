@@ -23,11 +23,13 @@ char *reverseRow(char *row) {
    return row;
 }
 
-void printBoard(unsigned matrix[N][N], FILE *outputFile) {
+void printBoard(unsigned matrix[N][N], FILE *outputFile, int num) {
    char buffer[1000] = "\0";
    char temp[10];
    int whiteBishopAmount = 4, blackBishopAmount = 4;
-
+   if(num > 0) {
+      sprintf(buffer, "\nSprendinys Nr. %d", num);
+   }
    for(int i = N-1; i >= 0; --i) {
       char invertedRow[100] = "\0";
       strcat(buffer, "\n  +");
@@ -134,13 +136,13 @@ void printStep(unsigned row, unsigned col, unsigned placedBishopAmount, bool isB
       depth[len+1] = '\0';
    }
 
-   sprintf(buffer, "\n%6lld)  %s%c%d stovi langelyje %c, %d. %s", ++step, depth, (isBlack ? 'J' : 'B'), placedBishopAmount, col+65, row+1, statusMsg);
+   sprintf(buffer, "\n%7lld)  %s%c%d stovi langelyje %c %d. %s", ++step, depth, (isBlack ? 'J' : 'B'), placedBishopAmount, col+65, row+1, statusMsg);
 
    printf("%s", buffer);
    fprintf(outputFile, "%s", buffer);
 }
 
-void solve(unsigned row, unsigned col, unsigned matrix[N][N], unsigned answer[3][N][N], unsigned placedBishopAmount, bool isBlack, FILE *outputFile) {
+void solve(unsigned row, unsigned col, unsigned matrix[N][N], unsigned answer[AMOUNT_OF_ANSWERS][N][N], unsigned placedBishopAmount, bool isBlack, FILE *outputFile) {
       for(int i = row; i < N; ++i) {
          int previousMatrix[N][N];
          for(int j = col; j < N; j += 2) { // Start iterating through chess board
@@ -153,12 +155,9 @@ void solve(unsigned row, unsigned col, unsigned matrix[N][N], unsigned answer[3]
                   memcpy(matrix, previousMatrix, sizeof(matrix[0]) * N);
                }
                else {
-                  if(amount) {
-                     memcpy(answer[1], matrix, sizeof(matrix[0]) * N);
-                  }
-                  else {
-                     memcpy(answer[0], matrix, sizeof(matrix[0]) * N);
-                  }
+                  if(amount < AMOUNT_OF_ANSWERS) {
+                     memcpy(answer[amount], matrix, sizeof(matrix[0]) * N);
+                  }    
                   ++amount;
                   printf(" Rastas atsakymas Nr. %lld", amount);
                   fprintf(outputFile, " Rastas atsakymas Nr. %lld", amount);
@@ -181,8 +180,10 @@ void solve(unsigned row, unsigned col, unsigned matrix[N][N], unsigned answer[3]
             printStep(i, j, placedBishopAmount, isBlack, isPlacementValid, outputFile);
             if(isPlacementValid && placedBishopAmount != BISHOP_AMOUNT / 2) {
                solve(i, j + 2, matrix, answer, placedBishopAmount + 1, isBlack, outputFile);
-               printf(" BACKTRACK.");
-               fprintf(outputFile, " BACKTRACK.");
+               if(!(i >= N && j >= N - 1)) {
+                  print(" BACKTRACK, ", outputFile);
+                  print("nesekme. ", outputFile);
+               }
                memcpy(matrix, previousMatrix, sizeof(matrix[0]) * N);
             }
          }

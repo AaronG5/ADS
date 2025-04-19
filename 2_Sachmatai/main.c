@@ -28,39 +28,40 @@ int main() {
       
       FILE *outputFile = fopen(fileName, "w");
    
-      sprintf(buffer, "2 Uzd. 7 var. Aaron Gandzumian, PS 2 gr. 1 pogr. Data: 25-03-2025\n\n"
-         "SALYGA.\nSustatyti N*N sachmatu lentoje 8 rikius, kad kiekviena langeli kirstu bent vienas rikis.\nIstirti 3 testais: N=8, 7, 9.\n\n"
-         "SPRENDIMO IDEJA. Perrenkami visi galimi 4 juodu rikiu variantai, nuosekliai, per\n");
+      sprintf(buffer, "2 uzduotis, 7 variantas. Aaron Gandzumian, PS 2 grupe 1 pogrupis.\n\n"
+         "SALYGA.\nSustatyti N x N sachmatu lentoje 8 rikius, kad kiekviena langeli kirstu\nbent vienas rikis.\n"
+         "Rasti pirmus 10 sprendimu. Istirti 3 testais: N = 7, 8, 9.\n\n"
+         "SPRENDIMO IDEJA.\nPerrenkami visi galimi 4 juodu rikiu variantai, nuosekliai, per\n");
       print(buffer, outputFile);
    
-      sprintf(buffer, "eilute, pradedant nuo 1 iki 8, o eiluteje per stulpelius, pradedant nuo A iki H, iki\n"
-         "kol yra kertami visi juodi langeliai. Po to yra perrenkami 4 balti rikiai, tokiu pat \n" 
-         "principu kaip ir juodieji.\n\n"
-         "Netinka - rikiai nekerta visu juodu/baltu langeliu, BACKTRACK, nesekme - griztama prie praeito rikio.\n"
+      sprintf(buffer, "eilute, pradedant nuo 1 iki 8, o eiluteje per stulpelius, pradedant\n"
+         "nuo A iki H, iki kol yra kertami visi juodi langeliai. Po to yra\nperrenkami 4 balti rikiai, tokiu patmprincipu kaip ir juodieji.\n\n");
+         print(buffer, outputFile);
+      sprintf(buffer, "\"Netinka\" reiskia, kad rikiai nekerta visu juodu/baltu langeliu.\nKai pasiekiamas lentos galas, naudojamas \"BACKTRACK, nesekme\", kurio \n"
+         "metu griztama prie praeito rikio.\n"
          "J - juodasis rikis.   B - baltasis rikis.\n");
       print(buffer, outputFile);
    
       printBoard(matrix, outputFile, -1);
    
-      sprintf(buffer, "\nPIRMA DALIS. Informacija ir pradiniai duomenys\n   "
-         "1. SALYGA. Sustatyti N*N sachmatu lentoje 8 rikius, kad kiekviena langeli kirstu bent vienas rikis.\n   "
-         "2. Lenta: %dx%d.\n   3. Rikiu skaicius: %d.\n", N, N, BISHOP_AMOUNT);
+      sprintf(buffer, "\nPIRMA DALIS. Duomenys\n   "
+         "1. N = %d. Lenta: %d x %d.\n   2. Rikiu skaicius: %d.\n", N, N, N, BISHOP_AMOUNT);
       print(buffer, outputFile);
    
-      sprintf(buffer, "\nANTRA DALIS. Vykdymas.   (X, Y) - X atitinka stulpelius, Y atitinka eilutes\n");
+      sprintf(buffer, "\nANTRA DALIS. Vykdymas.\n(X, Y) - X yra stulpeliai, Y yra eilutes.\n");
       print(buffer, outputFile);
    
       solve(col, row, matrix, answer, 1, true, outputFile);
       
       char resultMsg[200];
       if(amount) {
-         sprintf(resultMsg, "1) Uzkloti lenta imanoma: %lld skirtingais budais.\n", amount);
+         sprintf(resultMsg, "Uzkloti lenta imanoma: %lld skirtingais budais.\n", amount);
       }
       else {
          sprintf(resultMsg, "Nepavyko uzkloti lentos.\n");
       }
    
-      sprintf(buffer, "\n\nTRECIA DALIS. Rezultatai.\n   %s   2) Zingsniu prireike: %lld.\n", resultMsg, step);
+      sprintf(buffer, "\n\nTRECIA DALIS. Rezultatai.\n   1) %s   2) Zingsniu skaicius: %lld.\n", resultMsg, step);
       print(buffer, outputFile);
    
       if(amount) {

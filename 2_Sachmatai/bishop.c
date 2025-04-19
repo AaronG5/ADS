@@ -136,58 +136,78 @@ void printStep(unsigned row, unsigned col, unsigned placedBishopAmount, bool isB
       depth[len+1] = '\0';
    }
 
-   sprintf(buffer, "\n%7lld)  %s%c%d stovi langelyje %c %d. %s", ++step, depth, (isBlack ? 'J' : 'B'), placedBishopAmount, col+65, row+1, statusMsg);
+   sprintf(buffer, "\n%7lld) %s%c%d stovi langelyje %c %d. %s", ++step, depth, (isBlack ? 'J' : 'B'), placedBishopAmount, col+65, row+1, statusMsg);
 
    printf("%s", buffer);
    fprintf(outputFile, "%s", buffer);
 }
 
-void solve(unsigned row, unsigned col, unsigned matrix[N][N], unsigned answer[AMOUNT_OF_ANSWERS][N][N], unsigned placedBishopAmount, bool isBlack, FILE *outputFile) {
-      for(int i = row; i < N; ++i) {
-         int previousMatrix[N][N];
-         for(int j = col; j < N; j += 2) { // Start iterating through chess board
+bool solve(unsigned row, unsigned col, unsigned matrix[N][N], unsigned answer[AMOUNT_OF_ANSWERS][N][N], unsigned placedBishopAmount, bool isBlack, FILE *outputFile) {
+   for(int i = row; i < N; ++i) {
+      int previousMatrix[N][N];
+      for(int j = col; j < N; j += 2) { // Start iterating through chess board
 
-            if(isBoardDominated(matrix, isBlack) && placedBishopAmount == BISHOP_AMOUNT / 2) {
-               if(isBlack) {
-                  printf(" Pavyko. Pereinama i baltu rikiu skaiciavima.");
-                  fprintf(outputFile, " Pavyko. Pereinama i baltu rikiu skaiciavima.");
-                  solve(0, 1, matrix, answer, 1, false, outputFile);
-                  memcpy(matrix, previousMatrix, sizeof(matrix[0]) * N);
-               }
-               else {
-                  if(amount < AMOUNT_OF_ANSWERS) {
-                     memcpy(answer[amount], matrix, sizeof(matrix[0]) * N);
-                  }    
-                  ++amount;
-                  printf(" Rastas atsakymas Nr. %lld", amount);
-                  fprintf(outputFile, " Rastas atsakymas Nr. %lld", amount);
-                  memcpy(matrix, previousMatrix, sizeof(matrix[0]) * N);
-               }
+         bool isPlacementValid;
+         if(matrix[i][j] == FREE_SQUARE) {
+            if(placedBishopAmount < BISHOP_AMOUNT / 2 && i+1 >= N && j+3 >= N) {
+               isPlacementValid = false;
             }
-
-
-            bool isPlacementValid = matrix[i][j] == FREE_SQUARE; // Check if the square is free to place on
-
-            if(isPlacementValid) {
-               memcpy(previousMatrix, matrix, sizeof(matrix[0]) * N); // Copy board layout
-               placeBishop(i, j, matrix);
-
-               isPlacementValid = (isBoardDominated(matrix, isBlack)) || (placedBishopAmount != BISHOP_AMOUNT / 2); // Check if board is dominated or amount doesn't exceed max
-               if(!isPlacementValid) {
-                  memcpy(matrix, previousMatrix, sizeof(matrix[0]) * N); // Return board layout if invalid placement
-               }
-            }
-            printStep(i, j, placedBishopAmount, isBlack, isPlacementValid, outputFile);
-            if(isPlacementValid && placedBishopAmount != BISHOP_AMOUNT / 2) {
-               solve(i, j + 2, matrix, answer, placedBishopAmount + 1, isBlack, outputFile);
-               if(!(i >= N && j >= N - 1)) {
-                  print(" BACKTRACK, ", outputFile);
-                  print("nesekme. ", outputFile);
-               }
-               memcpy(matrix, previousMatrix, sizeof(matrix[0]) * N);
+            else {
+               isPlacementValid = true;
             }
          }
-         if(isBlack) col = (i + 1) % 2;
-         else col = i % 2;
+         else {
+            isPlacementValid = false;
+         }
+
+         if(isPlacementValid) {
+            memcpy(previousMatrix, matrix, sizeof(matrix[0]) * N); // Copy board layout
+            placeBishop(i, j, matrix);
+               
+            isPlacementValid = (isBoardDominated(matrix, isBlack)) || (placedBishopAmount != BISHOP_AMOUNT / 2); // Check if board is dominated or amount doesn't exceed max
+            if(!isPlacementValid) {
+               memcpy(matrix, previousMatrix, sizeof(matrix[0]) * N); // Return board layout if invalid placement
+            }
+         }
+
+         printStep(i, j, placedBishopAmount, isBlack, isPlacementValid, outputFile);
+
+         if(isBoardDominated(matrix, isBlack) && placedBishopAmount == BISHOP_AMOUNT / 2) {
+            if(isBlack) {
+               print(" Pavyko. Pereinama i baltu rikiu skaiciavima.", outputFile);
+               if(solve(0, 1, matrix, answer, 1, false, outputFile)) return true;
+               memcpy(matrix, previousMatrix, sizeof(matrix[0]) * N);
+            }
+            else {
+               if(amount < AMOUNT_OF_ANSWERS) {
+                  memcpy(answer[amount], matrix, sizeof(matrix[0]) * N);
+               }
+               else {
+                  return true;
+               }
+               ++amount;
+               printf(" Rastas atsakymas Nr. %lld", amount);
+               fprintf(outputFile, " Rastas atsakymas Nr. %lld", amount);
+               memcpy(matrix, previousMatrix, sizeof(matrix[0]) * N);
+               if(amount == 10) return true;
+            }
+         }
+
+         if(isPlacementValid && placedBishopAmount != BISHOP_AMOUNT / 2) {
+            int oldAmountOfAnswers = amount;
+            bool is_B3 = placedBishopAmount == 2;
+            if(solve(i, j + 2, matrix, answer, placedBishopAmount + 1, isBlack, outputFile)) return true;
+            if((!(i+1 >= N && j+3 >= N) && oldAmountOfAnswers == amount) && !is_B3) {
+               print(" BACKTRACK, nesekme. ", outputFile);
+            }
+            memcpy(matrix, previousMatrix, sizeof(matrix[0]) * N);
+         }
       }
+      if(isBlack) col = (i + 1) % 2;
+      else col = i % 2;
    }
+   if(placedBishopAmount == 3) {
+      print(" BACKTRACK, nesekme. ", outputFile);
+   }
+   return false;
+}

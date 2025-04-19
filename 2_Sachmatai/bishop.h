@@ -29,6 +29,6 @@ void placeBishop(unsigned col, unsigned row, unsigned matrix[N][N]);
 
 void printStep(unsigned col, unsigned row, unsigned placedBishopAmount, bool isBlack, bool isValid, FILE *outputFile);
 
-void solve(unsigned row, unsigned col, unsigned matrix[N][N], unsigned answer[3][N][N], unsigned placedBishopAmount, bool isBlack, FILE *outputFile);
+bool solve(unsigned row, unsigned col, unsigned matrix[N][N], unsigned answer[3][N][N], unsigned placedBishopAmount, bool isBlack, FILE *outputFile);
 
 #endif

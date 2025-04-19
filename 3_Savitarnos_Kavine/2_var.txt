@@ -1,0 +1,25 @@
+2. Savitarnos kavinė (ADT: stekas, ilgas sveikas skaičius).
+
+Procesas: klientai ateina į kavinę, pasiima lėkštę iš stirtos, įsideda maisto, pavalgo, nešvarią lėkštę deda į indų plovimo mašiną, 
+kuri švarias lėkštes deda atgal į stirtą.
+Patyrinėti, kiek lėkščių turėtų įsigyti kavinė, kad 10 procentų lėkščių būtų nenaudojamos.
+
+Pradiniai duomenys: lėkščių skaičius, kliento pavalgymo laikas, lėkštės plovimo laikas, tikimybė ateiti klientui. Galimà tikimybės 
+realizacija: generuoti atsitiktinį skaičių ir tikrinti, ar jis tenkina tam tikrą sąlygą.
+
+Rezultatai: statistika duotai simuliavimo trukmei, pvz., N=60 minučių. Tai vidutinis ir minimalus švarių lėkščių skaičius stirtoje 
+(numatyti ir išskirtinę situaciją, kai su pradiniais duomenimis klientas neranda švarios lėkštės).
+
+Testas1: Trukmė N=60 min. Lėkščių L=15. Klientas valgo 10 min. Lėkštė plaunama 10 min. Tikimybė ateiti klientui 100 %. Eilėje 
+klientai laukia lėkščių.
+
+Testas2: Trukmė N=60 min. Lėkščių L=15. Klientas valgo 10 min. Lėkštė plaunama 10 min. Tikimybė ateiti klientui 60 %. Nėra 
+eilės, nes mažai klientų.
+
+Testas3: Trukmė N=20 min. Lėkščių L=7. Klientas valgo 6 min. Lėkštė plaunama 8 min. Tikimybė ateiti klientui 100 %. Eilėje 
+klientai laukia lėkščių.
+
+Testas4: Trukmė N=40 min. Lėkščių L=10. Klientas valgo 5 min. Lėkštė plaunama 3 min. Tikimybė ateiti klientui 25 %. Nėra eilės, 
+nes mažai klientų.
+
+Testas5: Trukmė N=30 min. Lėkščių L=10. Klientas valgo 9 min. Lėkštė plaunama 3 min. Tikimybė ateiti klientui 75 %. Lėtai valgo.

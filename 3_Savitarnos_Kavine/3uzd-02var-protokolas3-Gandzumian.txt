@@ -1,0 +1,482 @@
+3 užduotis, 2 variantas. Aaron Gandžumian, 2 grupe, 1 pogrupis.
+
+SALYGA.
+Savitarnos kavinė. (ADT: stekas, ilgas sveikas skaičius).
+
+PROCESAS.
+Klientai ateina į kavinę, pasiima lėkštes iš stirtos, įsideda
+maisto, pavalgo, nešvarią lėkštę deda į indų plovimo mašiną, kuri
+švarias lėkštes deda atgal į stirtą.
+
+TIKSLAS.
+Patyrinėti, kiek lėkščių turetų įsigyti kavinė, kad 10 procentų lėkščių
+būtų nenaudojamos.
+
+TESTAI.
+Testas1: Trukmė N=60 min. Lėkščių L=15. Klientas valgo 10 min. Lėkštė plaunama 10 min.
+Tikimybė ateiti klientui 100 %. Eilėje klientai laukia lėkščių.
+
+Testas2: Trukmė N=60 min. Lėkščių L=15. Klientas valgo 10 min. Lėkštė plaunama 10 min.
+Tikimybė ateiti klientui 60 %. Nėra eilės, nes mažai klientų.
+
+Testas3: Trukmė N=20 min. Lėkščių L=7. Klientas valgo 6 min. Lėkštė plaunama 8 min.
+Tikimybė ateiti klientui 100 %. Eilėje klientai laukia lėkščių.
+
+Testas4: Trukmė N=40 min. Lėkščių L=10. Klientas valgo 5 min. Lėkštė plaunama 3 min.
+Tikimybė ateiti klientui 25 %. Nėra eilės, nes mažai klientų.
+
+Testas5: Trukmė N=30 min. Lėkščių L=10. Klientas valgo 9 min. Lėkštė plaunama 3 min.
+Tikimybė ateiti klientui 75 %. Lėtai valgo.
+
+
+1 DALIS. DUOMENYS.
+
+   Duomenų failas           duom3.txt
+   Simuliacijos periodas    N = 20 min.
+   Lėkščių kiekis           L = 7 vnt.
+   Kliento valgymo laikas   K = 6 min.
+   Lekštės plovimo laikas   P = 8 min.
+   Tikimybė ateiti klientui T = 100%
+
+
+2 DALIS. VYKDYMAS.
+
+
+T = 0 min.
+   BŪSENA_0:
+       Klientas K1 prie durų
+       1) Valgo 0 klientų(-ai).
+       2) Švarios lėkštės stirtoje 7 : L1, L2, L3, L4, L5, L6, L7.
+       3) Nešvarios lėkštės plovykloje 0.
+       4) Laukiantys klientai eilėje 0.
+
+   VEIKSMAS_1:
+       1) Klientas  K1 pasiima lėkštę L1 iš stirtos, įsideda maisto ir sėda valgyti 1 iš 6 min.
+
+   BŪSENA MINUTĖS PABAIGOJE:
+      Pavalgę klientai 0.
+
+
+T = 1 min.
+   BŪSENA_1:
+       Klientas K2 prie durų
+       1) Valgo 1 klientų(-ai).
+       2) Švarios lėkštės stirtoje 6 : L2, L3, L4, L5, L6, L7.
+       3) Nešvarios lėkštės plovykloje 0.
+       4) Laukiantys klientai eilėje 0.
+
+   VEIKSMAS_2:
+       1) Klientas  K2 pasiima lėkštę L2 iš stirtos, įsideda maisto ir sėda valgyti 1 iš 6 min.
+       2) Klientas  K1 valgo 2 iš 6 min.
+
+   BŪSENA MINUTĖS PABAIGOJE:
+      Pavalgę klientai 0.
+
+
+T = 2 min.
+   BŪSENA_2:
+       Klientas K3 prie durų
+       1) Valgo 2 klientų(-ai).
+       2) Švarios lėkštės stirtoje 5 : L3, L4, L5, L6, L7.
+       3) Nešvarios lėkštės plovykloje 0.
+       4) Laukiantys klientai eilėje 0.
+
+   VEIKSMAS_3:
+       1) Klientas  K3 pasiima lėkštę L3 iš stirtos, įsideda maisto ir sėda valgyti 1 iš 6 min.
+       2) Klientas  K2 valgo 2 iš 6 min.
+       3) Klientas  K1 valgo 3 iš 6 min.
+
+   BŪSENA MINUTĖS PABAIGOJE:
+      Pavalgę klientai 0.
+
+
+T = 3 min.
+   BŪSENA_3:
+       Klientas K4 prie durų
+       1) Valgo 3 klientų(-ai).
+       2) Švarios lėkštės stirtoje 4 : L4, L5, L6, L7.
+       3) Nešvarios lėkštės plovykloje 0.
+       4) Laukiantys klientai eilėje 0.
+
+   VEIKSMAS_4:
+       1) Klientas  K4 pasiima lėkštę L4 iš stirtos, įsideda maisto ir sėda valgyti 1 iš 6 min.
+       2) Klientas  K3 valgo 2 iš 6 min.
+       3) Klientas  K2 valgo 3 iš 6 min.
+       4) Klientas  K1 valgo 4 iš 6 min.
+
+   BŪSENA MINUTĖS PABAIGOJE:
+      Pavalgę klientai 0.
+
+
+T = 4 min.
+   BŪSENA_4:
+       Klientas K5 prie durų
+       1) Valgo 4 klientų(-ai).
+       2) Švarios lėkštės stirtoje 3 : L5, L6, L7.
+       3) Nešvarios lėkštės plovykloje 0.
+       4) Laukiantys klientai eilėje 0.
+
+   VEIKSMAS_5:
+       1) Klientas  K5 pasiima lėkštę L5 iš stirtos, įsideda maisto ir sėda valgyti 1 iš 6 min.
+       2) Klientas  K4 valgo 2 iš 6 min.
+       3) Klientas  K3 valgo 3 iš 6 min.
+       4) Klientas  K2 valgo 4 iš 6 min.
+       5) Klientas  K1 valgo 5 iš 6 min.
+
+   BŪSENA MINUTĖS PABAIGOJE:
+      Pavalgę klientai 0.
+
+
+T = 5 min.
+   BŪSENA_5:
+       Klientas K6 prie durų
+       1) Valgo 5 klientų(-ai).
+       2) Švarios lėkštės stirtoje 2 : L6, L7.
+       3) Nešvarios lėkštės plovykloje 0.
+       4) Laukiantys klientai eilėje 0.
+
+   VEIKSMAS_6:
+       1) Klientas  K6 pasiima lėkštę L6 iš stirtos, įsideda maisto ir sėda valgyti 1 iš 6 min.
+       2) Klientas  K5 valgo 2 iš 6 min.
+       3) Klientas  K4 valgo 3 iš 6 min.
+       4) Klientas  K3 valgo 4 iš 6 min.
+       5) Klientas  K2 valgo 5 iš 6 min.
+       6) Klientas  K1 valgo 6 iš 6 min.
+
+   BŪSENA MINUTĖS PABAIGOJE:
+      Pavalgę klientai 1 : K1.
+
+
+T = 6 min.
+   BŪSENA_6:
+       Klientas K7 prie durų
+       1) Valgo 6 klientų(-ai).
+       2) Švarios lėkštės stirtoje 1 : L7.
+       3) Nešvarios lėkštės plovykloje 0.
+       4) Laukiantys klientai eilėje 0.
+
+   VEIKSMAS_7:
+       1) Klientas  K7 pasiima lėkštę L7 iš stirtos, įsideda maisto ir sėda valgyti 1 iš 6 min.
+       2) Klientas  K6 valgo 2 iš 6 min.
+       3) Klientas  K5 valgo 3 iš 6 min.
+       4) Klientas  K4 valgo 4 iš 6 min.
+       5) Klientas  K3 valgo 5 iš 6 min.
+       6) Klientas  K2 valgo 6 iš 6 min.
+       7) Klientas  K1 pavalgė. Klientas padeda lėkštę L1 į indų plovimo mašiną, plaunama 1 iš 8 min.
+
+   BŪSENA MINUTĖS PABAIGOJE:
+      Pavalgę klientai 2 : K2, K1.
+
+
+T = 7 min.
+   BŪSENA_7:
+       Klientas K8 prie durų
+       1) Valgo 6 klientų(-ai).
+       2) Švarios lėkštės stirtoje 0.
+       3) Nešvarios lėkštės plovykloje 1 : L1.
+       4) Laukiantys klientai eilėje 0.
+
+   VEIKSMAS_8:
+       1) Lėkštė  L1 plaunama 2 iš 8 min.
+       2) Klientas  K8 atsistojo į eilę.
+       2) Klientas  K7 valgo 2 iš 6 min.
+       3) Klientas  K6 valgo 3 iš 6 min.
+       4) Klientas  K5 valgo 4 iš 6 min.
+       5) Klientas  K4 valgo 5 iš 6 min.
+       6) Klientas  K3 valgo 6 iš 6 min.
+       7) Klientas  K2 pavalgė. Klientas padeda lėkštę L2 į indų plovimo mašiną, plaunama 1 iš 8 min.
+
+   BŪSENA MINUTĖS PABAIGOJE:
+      Pavalgę klientai 3 : K3, K2, K1.
+
+
+T = 8 min.
+   BŪSENA_8:
+       Klientas K9 prie durų
+       1) Valgo 5 klientų(-ai).
+       2) Švarios lėkštės stirtoje 0.
+       3) Nešvarios lėkštės plovykloje 2 : L1, L2.
+       4) Laukiantys klientai eilėje 1 : K8.
+
+   VEIKSMAS_9:
+       1) Lėkštė  L2 plaunama 2 iš 8 min.
+       2) Lėkštė  L1 plaunama 3 iš 8 min.
+       3) Klientas  K9 atsistojo į eilę.
+       3) Klientas  K7 valgo 3 iš 6 min.
+       4) Klientas  K6 valgo 4 iš 6 min.
+       5) Klientas  K5 valgo 5 iš 6 min.
+       6) Klientas  K4 valgo 6 iš 6 min.
+       7) Klientas  K3 pavalgė. Klientas padeda lėkštę L3 į indų plovimo mašiną, plaunama 1 iš 8 min.
+
+   BŪSENA MINUTĖS PABAIGOJE:
+      Pavalgę klientai 4 : K4, K3, K2, K1.
+
+
+T = 9 min.
+   BŪSENA_9:
+       Klientas K10 prie durų
+       1) Valgo 4 klientų(-ai).
+       2) Švarios lėkštės stirtoje 0.
+       3) Nešvarios lėkštės plovykloje 3 : L1, L2, L3.
+       4) Laukiantys klientai eilėje 2 : K8, K9.
+
+   VEIKSMAS_10:
+       1) Lėkštė  L3 plaunama 2 iš 8 min.
+       2) Lėkštė  L2 plaunama 3 iš 8 min.
+       3) Lėkštė  L1 plaunama 4 iš 8 min.
+       4) Klientas K10 atsistojo į eilę.
+       4) Klientas  K7 valgo 4 iš 6 min.
+       5) Klientas  K6 valgo 5 iš 6 min.
+       6) Klientas  K5 valgo 6 iš 6 min.
+       7) Klientas  K4 pavalgė. Klientas padeda lėkštę L4 į indų plovimo mašiną, plaunama 1 iš 8 min.
+
+   BŪSENA MINUTĖS PABAIGOJE:
+      Pavalgę klientai 5 : K5, K4, K3, K2, K1.
+
+
+T = 10 min.
+   BŪSENA_10:
+       Klientas K11 prie durų
+       1) Valgo 3 klientų(-ai).
+       2) Švarios lėkštės stirtoje 0.
+       3) Nešvarios lėkštės plovykloje 4 : L1, L2, L3, L4.
+       4) Laukiantys klientai eilėje 3 : K8, K9, K10.
+
+   VEIKSMAS_11:
+       1) Lėkštė  L4 plaunama 2 iš 8 min.
+       2) Lėkštė  L3 plaunama 3 iš 8 min.
+       3) Lėkštė  L2 plaunama 4 iš 8 min.
+       4) Lėkštė  L1 plaunama 5 iš 8 min.
+       5) Klientas K11 atsistojo į eilę.
+       5) Klientas  K7 valgo 5 iš 6 min.
+       6) Klientas  K6 valgo 6 iš 6 min.
+       7) Klientas  K5 pavalgė. Klientas padeda lėkštę L5 į indų plovimo mašiną, plaunama 1 iš 8 min.
+
+   BŪSENA MINUTĖS PABAIGOJE:
+      Pavalgę klientai 6 : K6, K5, K4, K3, K2, K1.
+
+
+T = 11 min.
+   BŪSENA_11:
+       Klientas K12 prie durų
+       1) Valgo 2 klientų(-ai).
+       2) Švarios lėkštės stirtoje 0.
+       3) Nešvarios lėkštės plovykloje 5 : L1, L2, L3, L4, L5.
+       4) Laukiantys klientai eilėje 4 : K8, K9, K10, K11.
+
+   VEIKSMAS_12:
+       1) Lėkštė  L5 plaunama 2 iš 8 min.
+       2) Lėkštė  L4 plaunama 3 iš 8 min.
+       3) Lėkštė  L3 plaunama 4 iš 8 min.
+       4) Lėkštė  L2 plaunama 5 iš 8 min.
+       5) Lėkštė  L1 plaunama 6 iš 8 min.
+       6) Klientas K12 atsistojo į eilę.
+       6) Klientas  K7 valgo 6 iš 6 min.
+       7) Klientas  K6 pavalgė. Klientas padeda lėkštę L6 į indų plovimo mašiną, plaunama 1 iš 8 min.
+
+   BŪSENA MINUTĖS PABAIGOJE:
+      Pavalgę klientai 7 : K7, K6, K5, K4, K3, K2, K1.
+
+
+T = 12 min.
+   BŪSENA_12:
+       Klientas K13 prie durų
+       1) Valgo 1 klientų(-ai).
+       2) Švarios lėkštės stirtoje 0.
+       3) Nešvarios lėkštės plovykloje 6 : L1, L2, L3, L4, L5, L6.
+       4) Laukiantys klientai eilėje 5 : K8, K9, K10, K11, K12.
+
+   VEIKSMAS_13:
+       1) Lėkštė  L6 plaunama 2 iš 8 min.
+       2) Lėkštė  L5 plaunama 3 iš 8 min.
+       3) Lėkštė  L4 plaunama 4 iš 8 min.
+       4) Lėkštė  L3 plaunama 5 iš 8 min.
+       5) Lėkštė  L2 plaunama 6 iš 8 min.
+       6) Lėkštė  L1 plaunama 7 iš 8 min.
+       7) Klientas K13 atsistojo į eilę.
+       7) Klientas  K7 pavalgė. Klientas padeda lėkštę L7 į indų plovimo mašiną, plaunama 1 iš 8 min.
+
+   BŪSENA MINUTĖS PABAIGOJE:
+      Pavalgę klientai 7 : K7, K6, K5, K4, K3, K2, K1.
+
+
+T = 13 min.
+   BŪSENA_13:
+       Klientas K14 prie durų
+       1) Valgo 0 klientų(-ai).
+       2) Švarios lėkštės stirtoje 0.
+       3) Nešvarios lėkštės plovykloje 7 : L1, L2, L3, L4, L5, L6, L7.
+       4) Laukiantys klientai eilėje 6 : K8, K9, K10, K11, K12, K13.
+
+   VEIKSMAS_14:
+       1) Lėkštė  L7 plaunama 2 iš 8 min.
+       2) Lėkštė  L6 plaunama 3 iš 8 min.
+       3) Lėkštė  L5 plaunama 4 iš 8 min.
+       4) Lėkštė  L4 plaunama 5 iš 8 min.
+       5) Lėkštė  L3 plaunama 6 iš 8 min.
+       6) Lėkštė  L2 plaunama 7 iš 8 min.
+       7) Lėkštė  L1 plaunama 8 iš 8 min.
+       8) Klientas K14 atsistojo į eilę.
+
+   BŪSENA MINUTĖS PABAIGOJE:
+      Pavalgę klientai 7 : K7, K6, K5, K4, K3, K2, K1.
+
+
+T = 14 min.
+   BŪSENA_14:
+       Klientas K15 prie durų
+       1) Valgo 0 klientų(-ai).
+       2) Švarios lėkštės stirtoje 0.
+       3) Nešvarios lėkštės plovykloje 7 : L1, L2, L3, L4, L5, L6, L7.
+       4) Laukiantys klientai eilėje 7 : K8, K9, K10, K11, K12, K13, K14.
+
+   VEIKSMAS_15:
+       1) Lėkštė  L7 plaunama 3 iš 8 min.
+       2) Lėkštė  L6 plaunama 4 iš 8 min.
+       3) Lėkštė  L5 plaunama 5 iš 8 min.
+       4) Lėkštė  L4 plaunama 6 iš 8 min.
+       5) Lėkštė  L3 plaunama 7 iš 8 min.
+       6) Lėkštė  L2 plaunama 8 iš 8 min.
+       7) Lėkštė  L1 išplauta.
+       8) Klientas K15 atsistojo į eilę.
+       8) Klientas  K8 pasiima lėkštę L1 iš stirtos, įsideda maisto ir sėda valgyti 1 iš 6 min.
+
+   BŪSENA MINUTĖS PABAIGOJE:
+      Pavalgę klientai 7 : K7, K6, K5, K4, K3, K2, K1.
+
+
+T = 15 min.
+   BŪSENA_15:
+       Klientas K16 prie durų
+       1) Valgo 1 klientų(-ai).
+       2) Švarios lėkštės stirtoje 0.
+       3) Nešvarios lėkštės plovykloje 6 : L2, L3, L4, L5, L6, L7.
+       4) Laukiantys klientai eilėje 7 : K9, K10, K11, K12, K13, K14, K15.
+
+   VEIKSMAS_16:
+       1) Lėkštė  L7 plaunama 4 iš 8 min.
+       2) Lėkštė  L6 plaunama 5 iš 8 min.
+       3) Lėkštė  L5 plaunama 6 iš 8 min.
+       4) Lėkštė  L4 plaunama 7 iš 8 min.
+       5) Lėkštė  L3 plaunama 8 iš 8 min.
+       6) Lėkštė  L2 išplauta.
+       7) Klientas K16 atsistojo į eilę.
+       7) Klientas  K9 pasiima lėkštę L2 iš stirtos, įsideda maisto ir sėda valgyti 1 iš 6 min.
+       8) Klientas  K8 valgo 2 iš 6 min.
+
+   BŪSENA MINUTĖS PABAIGOJE:
+      Pavalgę klientai 7 : K7, K6, K5, K4, K3, K2, K1.
+
+
+T = 16 min.
+   BŪSENA_16:
+       Klientas K17 prie durų
+       1) Valgo 2 klientų(-ai).
+       2) Švarios lėkštės stirtoje 0.
+       3) Nešvarios lėkštės plovykloje 5 : L3, L4, L5, L6, L7.
+       4) Laukiantys klientai eilėje 7 : K10, K11, K12, K13, K14, K15, K16.
+
+   VEIKSMAS_17:
+       1) Lėkštė  L7 plaunama 5 iš 8 min.
+       2) Lėkštė  L6 plaunama 6 iš 8 min.
+       3) Lėkštė  L5 plaunama 7 iš 8 min.
+       4) Lėkštė  L4 plaunama 8 iš 8 min.
+       5) Lėkštė  L3 išplauta.
+       6) Klientas K17 atsistojo į eilę.
+       6) Klientas K10 pasiima lėkštę L3 iš stirtos, įsideda maisto ir sėda valgyti 1 iš 6 min.
+       7) Klientas  K9 valgo 2 iš 6 min.
+       8) Klientas  K8 valgo 3 iš 6 min.
+
+   BŪSENA MINUTĖS PABAIGOJE:
+      Pavalgę klientai 7 : K7, K6, K5, K4, K3, K2, K1.
+
+
+T = 17 min.
+   BŪSENA_17:
+       Klientas K18 prie durų
+       1) Valgo 3 klientų(-ai).
+       2) Švarios lėkštės stirtoje 0.
+       3) Nešvarios lėkštės plovykloje 4 : L4, L5, L6, L7.
+       4) Laukiantys klientai eilėje 7 : K11, K12, K13, K14, K15, K16, K17.
+
+   VEIKSMAS_18:
+       1) Lėkštė  L7 plaunama 6 iš 8 min.
+       2) Lėkštė  L6 plaunama 7 iš 8 min.
+       3) Lėkštė  L5 plaunama 8 iš 8 min.
+       4) Lėkštė  L4 išplauta.
+       5) Klientas K18 atsistojo į eilę.
+       5) Klientas K11 pasiima lėkštę L4 iš stirtos, įsideda maisto ir sėda valgyti 1 iš 6 min.
+       6) Klientas K10 valgo 2 iš 6 min.
+       7) Klientas  K9 valgo 3 iš 6 min.
+       8) Klientas  K8 valgo 4 iš 6 min.
+
+   BŪSENA MINUTĖS PABAIGOJE:
+      Pavalgę klientai 7 : K7, K6, K5, K4, K3, K2, K1.
+
+
+T = 18 min.
+   BŪSENA_18:
+       Klientas K19 prie durų
+       1) Valgo 4 klientų(-ai).
+       2) Švarios lėkštės stirtoje 0.
+       3) Nešvarios lėkštės plovykloje 3 : L5, L6, L7.
+       4) Laukiantys klientai eilėje 7 : K12, K13, K14, K15, K16, K17, K18.
+
+   VEIKSMAS_19:
+       1) Lėkštė  L7 plaunama 7 iš 8 min.
+       2) Lėkštė  L6 plaunama 8 iš 8 min.
+       3) Lėkštė  L5 išplauta.
+       4) Klientas K19 atsistojo į eilę.
+       4) Klientas K12 pasiima lėkštę L5 iš stirtos, įsideda maisto ir sėda valgyti 1 iš 6 min.
+       5) Klientas K11 valgo 2 iš 6 min.
+       6) Klientas K10 valgo 3 iš 6 min.
+       7) Klientas  K9 valgo 4 iš 6 min.
+       8) Klientas  K8 valgo 5 iš 6 min.
+
+   BŪSENA MINUTĖS PABAIGOJE:
+      Pavalgę klientai 7 : K7, K6, K5, K4, K3, K2, K1.
+
+
+T = 19 min.
+   BŪSENA_19:
+       Klientas K20 prie durų
+       1) Valgo 5 klientų(-ai).
+       2) Švarios lėkštės stirtoje 0.
+       3) Nešvarios lėkštės plovykloje 2 : L6, L7.
+       4) Laukiantys klientai eilėje 7 : K13, K14, K15, K16, K17, K18, K19.
+
+   VEIKSMAS_20:
+       1) Lėkštė  L7 plaunama 8 iš 8 min.
+       2) Lėkštė  L6 išplauta.
+       3) Klientas K20 atsistojo į eilę.
+       3) Klientas K13 pasiima lėkštę L6 iš stirtos, įsideda maisto ir sėda valgyti 1 iš 6 min.
+       4) Klientas K12 valgo 2 iš 6 min.
+       5) Klientas K11 valgo 3 iš 6 min.
+       6) Klientas K10 valgo 4 iš 6 min.
+       7) Klientas  K9 valgo 5 iš 6 min.
+       8) Klientas  K8 valgo 6 iš 6 min.
+
+   BŪSENA MINUTĖS PABAIGOJE:
+      Pavalgę klientai 8 : K8, K7, K6, K5, K4, K3, K2, K1.
+
+
+T = 20 min.
+   BŪSENA_20:
+       Klientas K21 prie durų
+       1) Valgo 6 klientų(-ai).
+       2) Švarios lėkštės stirtoje 0.
+       3) Nešvarios lėkštės plovykloje 1 : L7.
+       4) Laukiantys klientai eilėje 7 : K14, K15, K16, K17, K18, K19, K20.
+
+
+3 DALIS. REZULTATAI.
+
+   STATISTIKA:
+      1) Per 20 min. apsilankė 21 klientai(-ų).
+      2) Daugiausia vienu metu valgė 6 klientai.
+      3) Panaudota lėkščių 7.
+      4) Minimalus švarių lėkščių skaičius 0.
+      5) Vidutinis švarių lėkščių skaičius 1.33.
+      6) Ilgiausia eilė: K14, K15, K16, K17, K18, K19, K20
+
+   IŠVADA: Kavinė turėtų įsigyti 16 lėkščių, kad 10 procentų jų būtų nenaudojamos.

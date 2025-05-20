@@ -64,7 +64,7 @@ class Cafe {
    deque<Plate> dirtyPlates; // Deque of dirty plates
    queue<Client> waitingClients; // Queue of clients waiting in line
    deque<Client> eatingClients; // Deque of clients that are currently eating
-   stack<Client> finishedClients; // Stack of clients who have finished eating
+   queue<Client> finishedClients; // Stack of clients who have finished eating
 
    public:
    Cafe(const int& runTime, const int& cleanPlateNum, const int& eatTime, const int& cleanTime, const int& chance, string dataFileName);
